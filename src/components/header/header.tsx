@@ -26,7 +26,6 @@ function Header() {
           </Button>
         </div>
       </Card>
-      Header
     </div>
   );
 }
