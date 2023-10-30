@@ -52,12 +52,12 @@ const HeaderMenu = () => {
               </Button>
             ) : (
               <div className="order-1 flex flex-col justify-center gap-2">
-                <div className=" flex items-center gap-2 pl-4">
+                <div className="flex items-center gap-2 pl-4">
                   <Avatar>
                     {data?.user?.image && (
                       <AvatarImage src={data?.user?.image} alt="Avatar image" />
                     )}
-                    <AvatarFallback>
+                    <AvatarFallback className="order-1">
                       {/* O que aparece até a imagem ser carregada */}
                       {data?.user?.name?.[0].toUpperCase()}
                     </AvatarFallback>
