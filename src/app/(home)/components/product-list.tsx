@@ -8,9 +8,10 @@ import { useEffect } from "react";
 
 interface ProductListProps {
   products: Product[];
+  title: string;
 }
 
-const ProductList = ({ products }: ProductListProps) => {
+const ProductList = ({ products, title }: ProductListProps) => {
   useEffect(() => {
     console.log(window.innerWidth);
   }, []);
@@ -24,18 +25,21 @@ const ProductList = ({ products }: ProductListProps) => {
     },
   });
   return (
-    <div
-      ref={ref}
-      className="flex w-full  overflow-x-auto [&::-webkit-scrollbar]:hidden"
-      //colocar um numero de colunas para que seja iguais as do slider
-    >
-      {products.map((product) => {
-        return (
-          <div className="keen-slider__slide select-none" key={product.id}>
-            <ProductItem product={computeProductTotalPrice(product)} />
-          </div>
-        );
-      })}
+    <div className="flex flex-col gap-3">
+      <h2 className="text-base font-bold uppercase">{title}</h2>
+      <div
+        ref={ref}
+        className="flex w-full  overflow-x-auto [&::-webkit-scrollbar]:hidden"
+        //colocar um numero de colunas para que seja iguais as do slider
+      >
+        {products.map((product) => {
+          return (
+            <div className="keen-slider__slide select-none" key={product.id}>
+              <ProductItem product={computeProductTotalPrice(product)} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

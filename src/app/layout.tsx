@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-br" className="min-h-screen">
+    <html lang="pt-br" className="min-h-screen max-w-screen-2xl">
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"

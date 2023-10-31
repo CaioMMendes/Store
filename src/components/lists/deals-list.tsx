@@ -1,5 +1,5 @@
 import { prismaClient } from "@/lib/prisma";
-import ProductList from "./product-list";
+import ProductList from "../../app/(home)/components/product-list";
 
 const DealsList = async () => {
   const deals = await prismaClient.product.findMany({
@@ -15,7 +15,7 @@ const DealsList = async () => {
   // const dealsWithoutDecimal = JSON.parse(JSON.stringify(deals));
   return (
     <div>
-      <ProductList products={deals} />
+      <ProductList products={deals} title={"ofertas"} />
     </div>
   );
 };
