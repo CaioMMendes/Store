@@ -1,6 +1,7 @@
 import { HandleTheme } from "@/components/handleTheme";
 import Image from "next/image";
 import Categories from "./components/categories";
+import DealsList from "./components/deals-list";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       />
       <div className="flex flex-col gap-8 px-5 py-8">
         <Categories />
+        <DealsList />
       </div>
     </main>
   );
