@@ -4,7 +4,7 @@ import { Product } from "@prisma/client";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { computeProductTotalPrice } from "@/helpers/productPrice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface ProductListProps {
   products: Product[];
@@ -12,16 +12,22 @@ interface ProductListProps {
 }
 
 const ProductList = ({ products, title }: ProductListProps) => {
+  const [widthScreen, setWidthScreen] = useState<Number>();
+  const [numberPerView, setNumberPerView] = useState<Number>();
   useEffect(() => {
+    setWidthScreen(window.innerWidth);
     console.log(window.innerWidth);
   }, []);
+  // if(widthScreen<=640{
+  //   setNumberPerView(3)
+  // })
 
   const [ref] = useKeenSlider<HTMLDivElement>({
     loop: false,
     mode: "free",
     slides: {
-      perView: 4,
-      spacing: 2,
+      perView: "auto",
+      spacing: 12,
     },
   });
   return (
@@ -29,12 +35,16 @@ const ProductList = ({ products, title }: ProductListProps) => {
       <h2 className="text-base font-bold uppercase">{title}</h2>
       <div
         ref={ref}
-        className="flex w-full  overflow-x-auto [&::-webkit-scrollbar]:hidden"
+        className="flex w-full  overflow-x-auto  [&::-webkit-scrollbar]:hidden"
         //colocar um numero de colunas para que seja iguais as do slider
       >
         {products.map((product) => {
           return (
-            <div className="keen-slider__slide select-none" key={product.id}>
+            <div
+              className="keen-slider__slide select-none"
+              data-keen-slider-scrollable
+              key={product.id}
+            >
               <ProductItem product={computeProductTotalPrice(product)} />
             </div>
           );

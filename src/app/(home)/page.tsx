@@ -7,7 +7,7 @@ import PromoBanner from "./components/promo-banner";
 
 export default function Home() {
   return (
-    <main className=" mt-8 flex flex-col ">
+    <main className=" mt-3 flex flex-col ">
       <PromoBanner
         src="/banners/banner-55off.png"
         alt="Até 55% de desconto este mês"

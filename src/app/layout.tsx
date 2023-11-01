@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header/header";
 import { AuthProvider } from "@/providers/auth";
+import Footer from "@/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br" className="min-h-screen max-w-screen-2xl">
-      <body className={inter.className}>
+      <body className={`${inter.className} flex h-full flex-col`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -28,7 +29,8 @@ export default function RootLayout({
         >
           <AuthProvider>
             <Header />
-            {children}
+            <div className="flex-1">{children}</div>
+            <Footer />
           </AuthProvider>
         </ThemeProvider>
       </body>
