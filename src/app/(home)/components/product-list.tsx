@@ -5,13 +5,15 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { computeProductTotalPrice } from "@/helpers/productPrice";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface ProductListProps {
   products: Product[];
   title: string;
+  slug: string;
 }
 
-const ProductList = ({ products, title }: ProductListProps) => {
+const ProductList = ({ products, title, slug }: ProductListProps) => {
   const [widthScreen, setWidthScreen] = useState<Number>();
   const [numberPerView, setNumberPerView] = useState<Number>();
   useEffect(() => {
@@ -31,8 +33,10 @@ const ProductList = ({ products, title }: ProductListProps) => {
     },
   });
   return (
-    <div className="flex flex-col gap-3">
-      <h2 className="text-base font-bold uppercase">{title}</h2>
+    <div className="flex  flex-col gap-3">
+      <Link href={`/category/${slug}`} className="w-fit">
+        <h2 className="w-fit text-base font-bold uppercase">{title}</h2>
+      </Link>
       <div
         ref={ref}
         className="flex w-full  overflow-x-auto  [&::-webkit-scrollbar]:hidden"
@@ -41,11 +45,13 @@ const ProductList = ({ products, title }: ProductListProps) => {
         {products.map((product) => {
           return (
             <div
-              className="keen-slider__slide select-none"
+              className="keen-slider__slide select-none "
               data-keen-slider-scrollable
               key={product.id}
             >
-              <ProductItem product={computeProductTotalPrice(product)} />
+              <div className="max-w-40  w-40">
+                <ProductItem product={computeProductTotalPrice(product)} />
+              </div>
             </div>
           );
         })}

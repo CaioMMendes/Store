@@ -8,8 +8,8 @@ interface ProductItemProps {
 }
 const ProductItem = ({ product }: ProductItemProps) => {
   return (
-    <div className="max-w-40 flex w-40 cursor-pointer flex-col gap-4">
-      <div className="relative flex h-40 w-40 flex-col items-center justify-center rounded-lg bg-accent ">
+    <div className=" flex cursor-pointer flex-col gap-4">
+      <div className="relative flex h-40  flex-col items-center justify-center rounded-lg bg-accent ">
         {product.discountPercentage > 0 && (
           <div className="absolute left-2.5 top-2.5 flex items-center justify-start rounded-full bg-primary px-1.5">
             <ArrowDown width={17} height={24} />

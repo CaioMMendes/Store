@@ -24,7 +24,11 @@ const List = async ({ product }: { product: string }) => {
 
   return (
     <div>
-      <ProductList products={products} title={translatedProduct} />
+      <ProductList
+        products={products}
+        title={translatedProduct}
+        slug={product}
+      />
     </div>
   );
 };
