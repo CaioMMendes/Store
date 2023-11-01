@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header/header";
 import { AuthProvider } from "@/providers/auth";
 import Footer from "@/components/footer";
+import ReactQueryProvider from "@/providers/react-query";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,18 +22,20 @@ export default function RootLayout({
   return (
     <html lang="pt-br" className="min-h-screen max-w-screen-2xl">
       <body className={`${inter.className} flex h-full flex-col`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AuthProvider>
-            <Header />
-            <div className="flex-1">{children}</div>
-            <Footer />
-          </AuthProvider>
-        </ThemeProvider>
+        <AuthProvider>
+          <ReactQueryProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Header />
+              <div className="flex-1">{children}</div>
+              <Footer />
+            </ThemeProvider>
+          </ReactQueryProvider>
+        </AuthProvider>
       </body>
     </html>
   );
