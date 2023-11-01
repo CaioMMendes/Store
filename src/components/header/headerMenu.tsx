@@ -8,7 +8,13 @@ import {
   LogOutIcon,
 } from "lucide-react";
 import { Button } from "../ui/button";
-import { SheetTrigger, SheetContent, SheetTitle, Sheet } from "../ui/sheet";
+import {
+  SheetTrigger,
+  SheetContent,
+  SheetTitle,
+  Sheet,
+  SheetClose,
+} from "../ui/sheet";
 import { signIn, signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -70,7 +76,8 @@ const HeaderMenu = () => {
             )}
             <div className="order-3 flex flex-col gap-2">
               <HeaderMenuItem name={"Início"} href={""} />
-              <HeaderMenuItem name={"Ofertas"} href={""} />
+              <HeaderMenuItem name={"Ofertas"} href={"category/deals"} />
+
               <HeaderMenuItem name={"Catálogo"} href={"catalog"} />
 
               {status === "authenticated" && (

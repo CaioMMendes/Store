@@ -15,7 +15,7 @@ const DealsList = async () => {
   // const dealsWithoutDecimal = JSON.parse(JSON.stringify(deals));
   return (
     <div>
-      <ProductList products={deals} title={"ofertas"} />
+      <ProductList products={deals} title={"ofertas"} slug={"deals"} />
     </div>
   );
 };

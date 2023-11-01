@@ -4,6 +4,7 @@ import CategoryItemCatalog from "./components/category-item-catalog";
 
 const CatalogPage = async () => {
   const categories = await prismaClient.category.findMany({});
+
   return (
     <div className="flex h-full flex-col gap-5 p-4">
       <DropDownCatalog catalog={categories} category={"catalog"} />

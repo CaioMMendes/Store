@@ -12,6 +12,7 @@ import {
   ListIcon,
   MonitorIcon,
   MouseIcon,
+  PercentIcon,
   SpeakerIcon,
   SquareIcon,
 } from "lucide-react";
@@ -32,6 +33,7 @@ const DropDownCatalog = ({ catalog, category }: CatalogItems) => {
     speakers: <SpeakerIcon width={21} />,
     mouses: <MouseIcon width={21} />,
     catalog: <ListIcon width={21} />,
+    deals: <PercentIcon width={21} />,
   };
   const translate = {
     keyboards: "teclados",
@@ -40,6 +42,7 @@ const DropDownCatalog = ({ catalog, category }: CatalogItems) => {
     monitors: "Monitores",
     speakers: "speakers",
     mousepads: "mousepads",
+    deals: "Ofertas",
   };
   const pathname = usePathname();
   console.log(pathname);
@@ -77,6 +80,16 @@ const DropDownCatalog = ({ catalog, category }: CatalogItems) => {
             )
           );
         })}
+        {pathname !== "/category/deals" && (
+          <Link href={"/category/deals"}>
+            <DropdownMenuItem className="flex cursor-pointer justify-center gap-1.5">
+              <span className="flex w-1/4 justify-center">
+                {icons["deals" as keyof typeof icons]}
+              </span>
+              <p className="flex w-fit flex-1 justify-start"> Ofertas</p>
+            </DropdownMenuItem>
+          </Link>
+        )}
         {pathname !== "/catalog" && (
           <Link href={"/catalog"}>
             <DropdownMenuItem className="flex cursor-pointer justify-center gap-1.5">
