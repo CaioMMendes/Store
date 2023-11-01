@@ -13,6 +13,7 @@ import { signIn, signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Separator } from "../ui/separator";
+import HeaderMenuItem from "./headerMenuItem";
 
 const HeaderMenu = () => {
   const handleLoginClick = async () => {
@@ -68,27 +69,10 @@ const HeaderMenu = () => {
               </div>
             )}
             <div className="order-3 flex flex-col gap-2">
-              <Button
-                variant={"outline"}
-                className="flex w-full items-center justify-start gap-2"
-              >
-                <HomeIcon size={20} />
-                Início
-              </Button>
-              <Button
-                variant={"outline"}
-                className="flex w-full items-center justify-start gap-2"
-              >
-                <PercentIcon size={20} />
-                Ofertas
-              </Button>
-              <Button
-                variant={"outline"}
-                className="flex w-full items-center justify-start gap-2"
-              >
-                <ListOrderedIcon size={20} />
-                Catálogo
-              </Button>
+              <HeaderMenuItem name={"Início"} href={""} />
+              <HeaderMenuItem name={"Ofertas"} href={""} />
+              <HeaderMenuItem name={"Catálogo"} href={"catalog"} />
+
               {status === "authenticated" && (
                 <Button
                   variant={"outline"}
