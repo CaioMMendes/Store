@@ -2,15 +2,6 @@
 import Image from "next/image";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import ProductImageSlider from "./product-image-slider";
