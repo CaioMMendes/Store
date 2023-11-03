@@ -4,10 +4,12 @@ import Categories from "./components/categories";
 import DealsList from "../../components/lists/deals-list";
 import List from "@/components/lists/list";
 import PromoBanner from "./components/promo-banner";
+import SearchProduct from "@/components/search-product";
 
 export default function Home() {
   return (
     <main className=" mt-3 flex flex-col ">
+      <SearchProduct />
       <PromoBanner
         src="/banners/banner-55off.png"
         alt="Até 55% de desconto este mês"
