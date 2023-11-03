@@ -40,11 +40,7 @@ const ProductList = ({ products, title, slug }: ProductListProps) => {
       >
         {products.map((product) => {
           return (
-            <div
-              className="keen-slider__slide select-none "
-              data-keen-slider-scrollable
-              key={product.id}
-            >
+            <div className="keen-slider__slide select-none " key={product.id}>
               <div className="max-w-40  w-40">
                 <ProductItem product={computeProductTotalPrice(product)} />
               </div>
