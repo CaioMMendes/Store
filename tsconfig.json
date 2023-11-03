@@ -10,6 +10,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
+    "downlevelIteration": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
@@ -27,7 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "prettier.config.js"
+    "prettier.config.js",
+    "env.d.ts"
   ],
   "exclude": ["node_modules"]
 }
