@@ -12,6 +12,22 @@ export async function GET(request: Request) {
     where: {
       slug: slug,
     },
+    include: {
+      category: {
+        include: {
+          products: {
+            where: {
+              slug: {
+                not: slug,
+              },
+            },
+            orderBy: {
+              discountPercentage: "desc",
+            },
+          },
+        },
+      },
+    },
   });
   return new NextResponse(JSON.stringify(product), { status: 200 });
 }

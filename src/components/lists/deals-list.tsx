@@ -1,5 +1,5 @@
 import { prismaClient } from "@/lib/prisma";
-import ProductList from "../../app/(home)/components/product-list";
+import ProductList from "./product-list";
 
 const DealsList = async () => {
   const deals = await prismaClient.product.findMany({

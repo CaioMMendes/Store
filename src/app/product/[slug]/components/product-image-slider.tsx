@@ -63,8 +63,8 @@ const ProductImageSlider = ({
               />
             </div>
             <div
-              className={`${
-                currentSlide === imageUrls.length - 1 && "opacity-10"
+              className={`  opacity-90 ${
+                currentSlide === imageUrls.length - 1 && "!opacity-20"
               }`}
             >
               <Arrow
@@ -93,7 +93,7 @@ function Arrow(props: {
   return (
     <svg
       onClick={props.onClick}
-      className={`absolute top-1/2 z-20 h-full w-8 -translate-y-1/2  transform cursor-pointer fill-gray-100 ${
+      className={`absolute top-1/2 z-20 h-full w-12 -translate-y-1/2 transform  cursor-pointer fill-gray-100 px-2 ${
         props.left ? "left-1" : "left-auto right-1"
       } ${disabled}`}
       //   xmlns="http://www.w3.org/2000/svg"

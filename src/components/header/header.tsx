@@ -18,15 +18,17 @@ import Image from "next/image";
 function Header() {
   return (
     <div>
-      <Card className="flex items-center justify-between rounded-none border-x-0  border-b border-t-0 px-4 py-3">
-        <HeaderMenu />
-        <Link href={"/"}>
-          <div className="flex items-center justify-center gap-2">
+      <Card className=" relative flex items-center justify-between rounded-none border-x-0  border-b border-t-0 px-4 py-3">
+        <div className="z-10">
+          <HeaderMenu />
+        </div>
+        <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center ">
+          <Link href={"/"} className="flex items-center justify-center gap-2">
             <Image src="/logo.png" alt="logo" height={32} width={29} />
             <h1 className="text-xl font-semibold text-primary">Store</h1>
-          </div>
-        </Link>
-        <div className="flex">
+          </Link>
+        </div>
+        <div className="z-10 flex">
           <HandleTheme />
           <Button size="icon" variant="outline">
             <ShoppingCartIcon />

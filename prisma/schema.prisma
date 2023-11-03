@@ -19,8 +19,7 @@ model Category {
 }
 
 model Product {
-  id String @id @default(uuid())
-
+  id                 String   @id @default(uuid())
   name               String
   slug               String
   imageURLs          String[]

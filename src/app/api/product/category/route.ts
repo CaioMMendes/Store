@@ -25,6 +25,9 @@ export async function GET(request: Request) {
               slug: slug,
             },
           },
+          orderBy: {
+            discountPercentage: "desc",
+          },
         });
 
   return new NextResponse(JSON.stringify(products), { status: 200 });

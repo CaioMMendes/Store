@@ -1,5 +1,5 @@
 import { prismaClient } from "@/lib/prisma";
-import ProductList from "../../app/(home)/components/product-list";
+import ProductList from "./product-list";
 
 const List = async ({ product }: { product: string }) => {
   const translate = {

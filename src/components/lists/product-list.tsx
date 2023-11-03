@@ -15,14 +15,10 @@ interface ProductListProps {
 
 const ProductList = ({ products, title, slug }: ProductListProps) => {
   const [widthScreen, setWidthScreen] = useState<Number>();
-  const [numberPerView, setNumberPerView] = useState<Number>();
   useEffect(() => {
     setWidthScreen(window.innerWidth);
     console.log(window.innerWidth);
   }, []);
-  // if(widthScreen<=640{
-  //   setNumberPerView(3)
-  // })
 
   const [ref] = useKeenSlider<HTMLDivElement>({
     loop: false,
