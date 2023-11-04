@@ -39,11 +39,60 @@ export async function GET(request: Request) {
   if (searchParams.get("product")) {
     product = decodeURIComponent(searchParams.get("product")!);
     product = product.trim();
-    productModified = product.replace(/ /g, " & ");
+    productModified = product.replace(/ /g, " ");
     console.log(productModified);
   }
   const products = await prismaClient.product.findMany({
-    where: generateSearchQuery(productModified ?? ""),
+    // where: generateSearchQuery(productModified ?? ""),
+    where: {
+      OR: [
+        {
+          description: {
+            contains: productModified,
+            mode: "insensitive",
+          },
+        },
+        { name: { contains: productModified, mode: "insensitive" } },
+        { slug: { contains: productModified, mode: "insensitive" } },
+        {
+          category: {
+            OR: [
+              {
+                slug: { contains: productModified, mode: "insensitive" },
+              },
+              {
+                name: { contains: productModified, mode: "insensitive" },
+              },
+            ],
+          },
+        },
+      ],
+    },
+    orderBy: {
+      discountPercentage: "desc",
+    },
+    include: {
+      category: {
+        include: {
+          products: {
+            where: {
+              OR: [
+                {
+                  slug: {
+                    contains: productModified,
+                    mode: "insensitive",
+                  },
+                },
+                { name: { contains: productModified, mode: "insensitive" } },
+              ],
+            },
+            orderBy: {
+              discountPercentage: "desc",
+            },
+          },
+        },
+      },
+    },
   });
 
   return new NextResponse(JSON.stringify(products), { status: 200 });

@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -33,13 +34,14 @@ model Product {
 }
 
 model UserProduct {
-  id        String  @id @default(uuid())
-  productId String
-  product   Product @relation(fields: [productId], references: [id])
-  userId    String
-  user      User    @relation(fields: [userId], references: [id])
-  totalPaid Decimal @db.Decimal(8, 2)
-  quantity  Int     @default(1)
+  id           String   @id @default(uuid())
+  productId    String
+  product      Product  @relation(fields: [productId], references: [id])
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  totalPaid    Decimal  @db.Decimal(8, 2)
+  quantity     Int      @default(1)
+  purchaseDate DateTime @default(now())
 }
 
 model UserCart {
