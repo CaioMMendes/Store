@@ -14,6 +14,7 @@ import {
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
 import Image from "next/image";
+import CartSheet from "../cart/cart-sheet";
 
 function Header() {
   return (
@@ -30,9 +31,7 @@ function Header() {
         </div>
         <div className="z-10 flex">
           <HandleTheme />
-          <Button size="icon" variant="outline">
-            <ShoppingCartIcon />
-          </Button>
+          <CartSheet />
         </div>
       </Card>
     </div>

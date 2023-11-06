@@ -32,7 +32,7 @@ const HeaderMenu = () => {
   const { data, status } = useSession();
 
   return (
-    <>
+    <div>
       <Sheet>
         <SheetTrigger asChild>
           <Button size="icon" variant="outline">
@@ -94,7 +94,7 @@ const HeaderMenu = () => {
           </div>
         </SheetContent>
       </Sheet>
-    </>
+    </div>
   );
 };
 
