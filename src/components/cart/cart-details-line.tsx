@@ -7,7 +7,11 @@ interface CartDetailsLineProps {
 
 const CartDetailsLine = ({ text, value }: CartDetailsLineProps) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div
+      className={`flex flex-col gap-2 ${
+        text === "Descontos" && value === `- R$ ${0}` && "hidden"
+      }`}
+    >
       <Separator />
       <div className="flex items-center justify-between">
         <p className={`${text === "Total" && "font-bold"}`}>{text}</p>

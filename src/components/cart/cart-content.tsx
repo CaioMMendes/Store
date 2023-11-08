@@ -14,36 +14,32 @@ import CartDetailsLine from "./cart-details-line";
 import { productsSubtotalCalc } from "@/helpers/products-subtotal-calc";
 import { productsTotalCalc } from "@/helpers/products-total-calc";
 import { productsDiscountsCalc } from "@/helpers/products-discounts-calc";
-
+import { v4 as uuidv4 } from "uuid";
+import { queryClient } from "@/providers/query-client";
 interface DataProps {
   user: DataUser;
 }
 
 const CartContent = () => {
   const { data, status } = useSession();
-  const [products, setProducts] = useState([]);
-
   const dataUser = data as DataProps;
-
+  const productsZustand = cartProducts((state) => state.products);
+  const addProduct = cartProducts((state) => state.addProduct);
+  const setProducts = cartProducts((state) => state.setProducts);
+  queryClient.setQueryDefaults(["cartProducts" /* productsZustand */], {
+    staleTime: 1,
+    cacheTime: 0,
+  });
   const {
     data: cartProductsData,
     isError: cartProductsIsError,
     isLoading: cartProductsIsLoading,
   } = useQuery({
-    queryKey: ["cartProducts"],
-    cacheTime: 1000,
+    queryKey: ["cartProducts" /* productsZustand */],
+    cacheTime: 0,
     queryFn: async () => await GetProductsFromCart(dataUser?.user.id),
   });
 
-  const productsZustand = cartProducts((state) => state.products);
-  console.log(productsZustand);
-  const addProduct = cartProducts((state) => state.addProduct);
-  const [productsValue, setProductsValue] = useState<number>();
-
-  // Atualizar productsValue quando productsZustand mudar
-  //   useEffect(() => {
-  //     setProductsValue(productValuesCalc(productsZustand));
-  //   }, [productsZustand]);
   const productsSubtotal = useMemo(
     () => productsSubtotalCalc(productsZustand),
     [productsZustand],
@@ -65,7 +61,6 @@ const CartContent = () => {
   //       addProduct(cartProductsData);
   //     }
   //   }, []);
-  // console.log(products);
 
   if (cartProductsIsError) {
     alert("Ocorreu um erro");
@@ -78,21 +73,18 @@ const CartContent = () => {
     (productsZustand === undefined || productsZustand.length === 0) &&
     cartProductsData
   ) {
-    console.log(cartProductsData);
-    addProduct(cartProductsData);
+    setProducts(cartProductsData);
   }
 
-  console.log(dataUser?.user.id, cartProductsData, productsZustand);
-  console.log(productsZustand.length);
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3 ">
       {productsZustand.length > 0 &&
         productsZustand.map((product) => {
-          console.log(product);
-          console.log(product.product);
           return (
             <div key={product.id}>
               <CartProductItem
+                cartProductId={product.id}
+                status={status}
                 product={computeProductTotalPrice(product.product)}
                 quantity={product.quantity}
               />
@@ -101,13 +93,21 @@ const CartContent = () => {
         })}
       {productsZustand.length > 0 && (
         <div className="flex flex-col gap-2">
-          <CartDetailsLine text={"Subtotal"} value={`R$ ${productsSubtotal}`} />
+          <CartDetailsLine
+            text={"Subtotal"}
+            value={`R$ ${productsSubtotal?.toFixed(2)}`}
+          />
           <CartDetailsLine text={"Entrega"} value={`${"GRÁTIS"}`} />
+
           <CartDetailsLine
             text={"Descontos"}
-            value={`- R$ ${productsDiscount}`}
+            value={`- R$ ${productsDiscount?.toFixed(2)}`}
           />
-          <CartDetailsLine text={"Total"} value={`R$ ${productsTotal}`} />
+
+          <CartDetailsLine
+            text={"Total"}
+            value={`R$ ${productsTotal?.toFixed(2)}`}
+          />
         </div>
       )}
     </div>
