@@ -39,8 +39,8 @@ export async function GET(request: Request) {
   if (searchParams.get("product")) {
     product = decodeURIComponent(searchParams.get("product")!);
     product = product.trim();
-    productModified = product.replace(/ /g, " ");
-    console.log(productModified);
+    productModified = product;
+    // productModified = product.replace(/ /g, " ");
   }
   const products = await prismaClient.product.findMany({
     // where: generateSearchQuery(productModified ?? ""),

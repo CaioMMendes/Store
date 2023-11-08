@@ -14,11 +14,11 @@ interface ProductListProps {
 }
 
 const ProductList = ({ products, title, slug }: ProductListProps) => {
-  const [widthScreen, setWidthScreen] = useState<Number>();
-  useEffect(() => {
-    setWidthScreen(window.innerWidth);
-    console.log(window.innerWidth);
-  }, []);
+  // const [widthScreen, setWidthScreen] = useState<Number>();
+  // useEffect(() => {
+  //   setWidthScreen(window.innerWidth);
+  //   console.log(window.innerWidth);
+  // }, []);
 
   const [ref] = useKeenSlider<HTMLDivElement>({
     loop: false,

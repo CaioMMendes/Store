@@ -45,9 +45,7 @@ const DropDownCatalog = ({ catalog, category }: CatalogItems) => {
     deals: "Ofertas",
   };
   const pathname = usePathname();
-  console.log(pathname);
   const selected = pathname.split("/")[2];
-  console.log(selected);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

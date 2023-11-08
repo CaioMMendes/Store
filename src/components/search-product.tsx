@@ -48,7 +48,7 @@ const SearchProduct = () => {
                 ? "border-red-500"
                 : "focus:ring-1 focus:ring-primary"
             }
-             border-2 border-solid outline-none`}
+             !disabled:opacity-80 border-2 border-solid !placeholder-zinc-400 outline-none`}
             placeholder="Busque aqui seu produto"
           />
         </div>
