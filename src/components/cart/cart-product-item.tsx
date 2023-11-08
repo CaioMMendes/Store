@@ -1,7 +1,7 @@
 "use client";
 import { ProductWithTotalPrice } from "@/helpers/productPrice";
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { TrashIcon } from "lucide-react";
 import cartProducts from "@/providers/cart-provider";
@@ -40,8 +40,17 @@ const CartProductItem = ({
   const updateQuantity = cartProducts((state) => state.updateQuantity);
   const deleteProduct = cartProducts((state) => state.deleteProduct);
   const debounceQuantity = useDebounce(quantity);
+  const firstUpdate = useRef(true);
   useEffect(() => {
-    cartProductId && UpdateCartProductQuantity({ cartProductId, quantity });
+    if (firstUpdate.current) {
+      console.log("first");
+      firstUpdate.current = false;
+      return;
+    }
+    console.log("first");
+    if (cartProductId) {
+      cartProductId && UpdateCartProductQuantity({ cartProductId, quantity });
+    }
   }, [debounceQuantity]); // eslint-disable-line
   const handleQuantity = ({
     status,

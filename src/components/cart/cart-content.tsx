@@ -53,15 +53,6 @@ const CartContent = () => {
     [productsZustand],
   );
 
-  //   useEffect(() => {
-  //     if (cartProductsIsLoading) {
-  //       return;
-  //     }
-  //     if (productsZustand === undefined || productsZustand.length === 0) {
-  //       addProduct(cartProductsData);
-  //     }
-  //   }, []);
-
   if (cartProductsIsError) {
     alert("Ocorreu um erro");
     return <div>Ocorreu um erro!</div>;

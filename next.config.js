@@ -3,7 +3,8 @@ const nextConfig = {
     images: {
         domains: ["cdn.discordapp.com"]
     },
-    trailingSlash: true
+    trailingSlash: true,
+    reactStrictMode: true,
 }
 
 module.exports = nextConfig
