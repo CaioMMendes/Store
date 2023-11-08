@@ -13,13 +13,24 @@ import { useState } from "react";
 
 const SelectOrderBy = () => {
   const [order, setOrder] = useState<string>("Ordenar");
+
+  const handleValueChange = (value: string) => {
+    console.log(value);
+  };
   return (
-    <Select>
-      <SelectTrigger className="z-10">
+    <Select onValueChange={(value) => handleValueChange(value)}>
+      <SelectTrigger>
         <SelectValue placeholder="Ofertas" />
       </SelectTrigger>
-      <SelectContent>
-        <SelectGroup className="z-10">
+      <SelectContent
+        ref={(ref) => {
+          if (!ref) return;
+          ref.ontouchstart = (e) => {
+            e.preventDefault();
+          };
+        }}
+      >
+        <SelectGroup>
           <SelectItem value="lowestPrice">Menor Preço</SelectItem>
           <SelectItem value="biggestPrice">Maior Preço</SelectItem>
         </SelectGroup>
