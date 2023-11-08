@@ -21,6 +21,12 @@ const LoadingProductImages = () => {
           );
         })}
       </div>
+      <div className="flex flex-col gap-2 px-5 py-2">
+        <div className="flex  flex-col gap-1">
+          <Skeleton className="h-6 w-40 bg-accent "></Skeleton>
+          <Skeleton className="h-7 w-52 bg-accent  "></Skeleton>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "UserProduct" ADD COLUMN     "purchaseDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

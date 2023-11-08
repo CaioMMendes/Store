@@ -1,6 +1,7 @@
 "use client";
 import PercentageBadge from "@/components/percentage-badge";
 import { Button } from "@/components/ui/button";
+
 import {
   ProductWithTotalPrice,
   computeProductTotalPrice,
@@ -10,19 +11,53 @@ import { useState } from "react";
 import ProductDescription from "./product-description";
 import { TruckIcon } from "lucide-react";
 import Image from "next/image";
+import cartProducts from "@/providers/cart-provider";
+import { useSession } from "next-auth/react";
+import { v4 as uuidv4 } from "uuid";
+import GetProductsFromCart from "@/requests/get-products-from-cart";
+import AddProductToCart from "@/requests/add-product-to-cart";
 
-interface ProductDetailsProps {
-  product: ProductWithTotalPrice;
+export interface DataUser {
+  id?: string | undefined;
+  name?: string | undefined | null;
+  image?: string | undefined | null;
+  email?: string | undefined | null;
 }
 
-const ProductDetails = ({ product }: ProductDetailsProps) => {
+export interface HandleAddProductProps {
+  product: ProductWithTotalPrice;
+  userId: string | undefined;
+  quantity: number;
+  status: "loading" | "authenticated" | "unauthenticated";
+}
+
+const ProductDetails = ({ product }: { product: ProductWithTotalPrice }) => {
+  const { data, status } = useSession();
+  const dataUser = data as { user: DataUser };
   const [quantity, setQuantity] = useState(1);
+
+  const addProduct = cartProducts((state) => state.addProduct);
   const handleQuantity = (status: string) => {
     if (status === "aumentar") {
       return setQuantity((prev) => prev + 1);
     } else if (status === "diminuir") {
       return quantity > 1 && setQuantity((prev) => prev - 1);
     }
+  };
+  const handleAddProduct = ({
+    product,
+    userId,
+    quantity,
+    status,
+  }: HandleAddProductProps) => {
+    if (status !== "authenticated") {
+      //salvar no localStorage
+    }
+    if (!userId || userId === undefined) {
+      return alert("Ocorreu um erro, atualize a página e tente novamente");
+    }
+    AddProductToCart({ userId, productId: product.id, quantity });
+    addProduct({ product: product, productId: product.id, userId, quantity });
   };
   return (
     <div className="flex flex-col gap-4">
@@ -64,13 +99,23 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               variant={"outline"}
               onClick={() => handleQuantity("aumentar")}
             >
-              <p className="text-lg">{">"}</p>
+              <p>{">"}</p>
             </Button>
           </div>
         </div>
       </div>
 
-      <Button className=" font-semibold uppercase">
+      <Button
+        className=" font-semibold uppercase"
+        onClick={() => {
+          handleAddProduct({
+            userId: dataUser?.user.id,
+            product: product,
+            quantity,
+            status,
+          });
+        }}
+      >
         Adicionar ao carrinho
       </Button>
       <div className="flex items-center justify-between rounded-lg bg-accent px-4 py-2">
@@ -80,6 +125,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             alt={"truck icon"}
             width={30}
             height={30}
+            sizes="auto"
           />
           <div className="flex flex-col">
             <p className="text-sm">

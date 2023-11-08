@@ -14,11 +14,11 @@ interface ProductListProps {
 }
 
 const ProductList = ({ products, title, slug }: ProductListProps) => {
-  const [widthScreen, setWidthScreen] = useState<Number>();
-  useEffect(() => {
-    setWidthScreen(window.innerWidth);
-    console.log(window.innerWidth);
-  }, []);
+  // const [widthScreen, setWidthScreen] = useState<Number>();
+  // useEffect(() => {
+  //   setWidthScreen(window.innerWidth);
+  //   console.log(window.innerWidth);
+  // }, []);
 
   const [ref] = useKeenSlider<HTMLDivElement>({
     loop: false,
@@ -40,11 +40,7 @@ const ProductList = ({ products, title, slug }: ProductListProps) => {
       >
         {products.map((product) => {
           return (
-            <div
-              className="keen-slider__slide select-none "
-              data-keen-slider-scrollable
-              key={product.id}
-            >
+            <div className="keen-slider__slide select-none " key={product.id}>
               <div className="max-w-40  w-40">
                 <ProductItem product={computeProductTotalPrice(product)} />
               </div>

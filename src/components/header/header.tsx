@@ -14,6 +14,7 @@ import {
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
 import Image from "next/image";
+import CartSheet from "../cart/cart-sheet";
 
 function Header() {
   return (
@@ -24,15 +25,25 @@ function Header() {
         </div>
         <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center ">
           <Link href={"/"} className="flex items-center justify-center gap-2">
-            <Image src="/logo.png" alt="logo" height={32} width={29} />
+            <div className="flex h-7 w-8">
+              <Image
+                src="/logo.png"
+                alt="logo"
+                height={0}
+                width={0}
+                sizes="100vw"
+                className="h-auto w-full"
+                style={{
+                  objectFit: "contain",
+                }}
+              />
+            </div>
             <h1 className="text-xl font-semibold text-primary">Store</h1>
           </Link>
         </div>
         <div className="z-10 flex">
           <HandleTheme />
-          <Button size="icon" variant="outline">
-            <ShoppingCartIcon />
-          </Button>
+          <CartSheet />
         </div>
       </Card>
     </div>

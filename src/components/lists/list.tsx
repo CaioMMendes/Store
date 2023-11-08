@@ -23,7 +23,7 @@ const List = async ({ product }: { product: string }) => {
   });
 
   return (
-    <div>
+    <div className="flex flex-col gap-8 px-5 ">
       <ProductList
         products={products}
         title={translatedProduct}

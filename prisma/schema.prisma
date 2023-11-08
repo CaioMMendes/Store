@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -19,15 +20,37 @@ model Category {
 }
 
 model Product {
-  id                 String   @id @default(uuid())
+  id                 String        @id @default(uuid())
   name               String
   slug               String
   imageURLs          String[]
   description        String
-  basePrice          Decimal  @db.Decimal(8, 2)
+  basePrice          Decimal       @db.Decimal(8, 2)
   categoryId         String
-  category           Category @relation(fields: [categoryId], references: [id])
-  discountPercentage Int      @default(0)
+  category           Category      @relation(fields: [categoryId], references: [id])
+  discountPercentage Int           @default(0)
+  userProduct        UserProduct[]
+  userCart           UserCart[]
+}
+
+model UserProduct {
+  id           String   @id @default(uuid())
+  productId    String
+  product      Product  @relation(fields: [productId], references: [id])
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  totalPaid    Decimal  @db.Decimal(8, 2)
+  quantity     Int      @default(1)
+  purchaseDate DateTime @default(now())
+}
+
+model UserCart {
+  id        String  @id @default(uuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+  quantity  Int     @default(1)
 }
 
 model Account {
@@ -58,13 +81,15 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  userProduct   UserProduct[]
+  userCart      UserCart[]
 }
 
 model VerificationToken {
