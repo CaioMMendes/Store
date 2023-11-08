@@ -9,43 +9,52 @@ import { ProductWithTotalPrice } from "@/helpers/productPrice";
 
 export interface OptionalIdUserCart extends Omit<UserCart, "id"> {
   id?: string | undefined;
+  userId: string;
+  productId: string;
+  quantity: number;
   product: ProductWithTotalPrice;
 }
 
 interface ICartProducts {
   // userId: string;
   products: OptionalIdUserCart[];
-  addProduct: (product: OptionalIdUserCart[]) => void;
+  addProduct: (productReceived: OptionalIdUserCart) => void;
+  setProducts: (products: OptionalIdUserCart[]) => void;
   // setUserId: (userId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   deleteProduct: (productId: string) => void;
 }
 
-const cartProducts = create<ICartProducts>()((set) => ({
-  // userId: "",
-  products: [
-    // { id: "fasdas", productId: "asdasd", userId: "asdasd", quantity: 2 },
-  ],
-  // setUserId: (userId) => {
-  //   set({ userId });
-  // },
+const cartProducts = create<ICartProducts>()((set, get) => ({
+  products: [],
   updateQuantity: (productId, quantity) => {
     set((state) => ({
       products: state.products.map((product) => {
-        if (product.product.id === productId) {
-          console.log("first");
+        if (product.id === productId) {
           return { ...product, quantity: quantity };
         }
         return product;
       }),
     }));
   },
-  addProduct: (product) => {
-    if (product) {
-      set((state) => ({
-        products: [...state.products, ...product],
-      }));
+  setProducts: (products) => {
+    set((state) => ({
+      products: [...state.products, ...products],
+    }));
+  },
+  addProduct: (productReceived) => {
+    console.log(productReceived.id);
+    const products = get().products;
+    const findProduct = products.find(
+      (p) => p.productId === productReceived.productId,
+    );
+    if (findProduct) {
+      findProduct.quantity += productReceived.quantity;
+    } else {
+      products.push(productReceived);
     }
+    set({ products });
+    //  set((state) => ({}));
   },
   deleteProduct: (productId) => {
     set((state) => ({
