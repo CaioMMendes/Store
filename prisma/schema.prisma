@@ -17,6 +17,8 @@ model Category {
   slug     String
   imageURL String
   products Product[]
+
+  @@index([slug])
 }
 
 model Product {
@@ -31,6 +33,11 @@ model Product {
   discountPercentage Int           @default(0)
   userProduct        UserProduct[]
   userCart           UserCart[]
+
+  @@index([discountPercentage])
+  @@index([basePrice])
+  @@index([name])
+  @@index([slug])
 }
 
 model UserProduct {
@@ -51,6 +58,9 @@ model UserCart {
   userId    String
   user      User    @relation(fields: [userId], references: [id])
   quantity  Int     @default(1)
+
+  @@index([userId])
+  @@index([productId])
 }
 
 model Account {
