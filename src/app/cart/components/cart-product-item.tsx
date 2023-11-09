@@ -2,7 +2,7 @@
 import { ProductWithTotalPrice } from "@/helpers/productPrice";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../../components/ui/button";
 import { TrashIcon } from "lucide-react";
 import cartProducts from "@/providers/cart-provider";
 import { UserCart } from "@prisma/client";
@@ -10,7 +10,7 @@ import DeleteProductCart from "@/requests/delete-product-cart";
 import { useDebounce } from "@/helpers/use-debounce";
 import UpdateCartProductQuantity from "@/requests/update-cart-product-quantity";
 import Link from "next/link";
-import { SheetClose } from "../ui/sheet";
+import { SheetClose } from "../../../components/ui/sheet";
 
 interface CartUserProduct {
   cartProductId: string | undefined;
@@ -41,14 +41,19 @@ const CartProductItem = ({
   const deleteProduct = cartProducts((state) => state.deleteProduct);
   const debounceQuantity = useDebounce(quantity);
   const firstUpdate = useRef(true);
+  const [render, setRender] = useState(false);
+
   useEffect(() => {
     if (firstUpdate.current) {
-      console.log("first");
       firstUpdate.current = false;
       return;
     }
-    console.log("first");
-    if (cartProductId) {
+    if (render === false) {
+      return;
+    }
+    console.log(cartProductId);
+    if (cartProductId !== undefined) {
+      setRender(false);
       cartProductId && UpdateCartProductQuantity({ cartProductId, quantity });
     }
   }, [debounceQuantity]); // eslint-disable-line
@@ -60,6 +65,7 @@ const CartProductItem = ({
     if (cartProductId === undefined) {
       return;
     }
+    setRender(true);
     if (status === "aumentar") {
       return updateQuantity(cartProductId, quantity + 1);
     } else if (status === "diminuir") {
@@ -78,8 +84,8 @@ const CartProductItem = ({
   return (
     <div className="flex h-full w-full items-center justify-between gap-2">
       <SheetClose asChild>
-        <Link href={`/product/${product.slug}`}>
-          <div className="w-26 flex h-full items-center justify-center rounded-lg bg-accent">
+        <Link href={`/product/${product.slug}`} className="h-full">
+          <div className="flex h-full w-28 items-center justify-center rounded-lg bg-accent">
             <Image
               src={product.imageURLs[0]}
               alt={product.name}

@@ -14,7 +14,7 @@ import {
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
 import Image from "next/image";
-import CartSheet from "../cart/cart-sheet";
+import CartSheet from "../../app/cart/components/cart-sheet";
 
 function Header() {
   return (

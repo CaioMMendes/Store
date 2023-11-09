@@ -1,13 +1,13 @@
 "use client";
 import { MenuIcon, ShoppingCartIcon } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "../../../components/ui/button";
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetHeader,
   SheetTrigger,
-} from "../ui/sheet";
+} from "../../../components/ui/sheet";
 import Link from "next/link";
 import CartContent from "./cart-content";
 
@@ -30,11 +30,11 @@ const CartSheet = () => {
           </SheetHeader>
           <CartContent />
           <div>
-            <Link href={"/cart"}>
-              <SheetClose asChild>
-                <Button>Ver Carrinho</Button>
-              </SheetClose>
-            </Link>
+            <SheetClose asChild>
+              <Link href={"/cart"}>
+                <Button className="flex w-full">Ver Carrinho</Button>
+              </Link>
+            </SheetClose>
           </div>
         </SheetContent>
       </Sheet>

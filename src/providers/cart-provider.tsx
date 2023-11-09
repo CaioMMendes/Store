@@ -38,9 +38,12 @@ const cartProducts = create<ICartProducts>()((set, get) => ({
     }));
   },
   setProducts: (products) => {
+    // if (products.length !== 0 && products !== undefined) {
     set((state) => ({
-      products: [...state.products, ...products],
+      // products: [...state.products, ...products],
+      products: [...products],
     }));
+    // }
   },
   addProduct: (productReceived) => {
     console.log(productReceived.id);
@@ -57,6 +60,8 @@ const cartProducts = create<ICartProducts>()((set, get) => ({
     //  set((state) => ({}));
   },
   deleteProduct: (productId) => {
+    const a = get().products;
+    console.log(a.filter((product) => product.id !== productId));
     set((state) => ({
       products: state.products.filter((product) => product.id !== productId),
     }));

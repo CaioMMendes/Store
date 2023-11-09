@@ -35,8 +35,13 @@ const CartContent = () => {
     isError: cartProductsIsError,
     isLoading: cartProductsIsLoading,
   } = useQuery({
-    queryKey: ["cartProducts" /* productsZustand */],
+    queryKey: [`cartProducts` /* productsZustand */],
     cacheTime: 0,
+    onSuccess: (data) => {
+      if (data && data.length > 0) {
+        setProducts(data);
+      }
+    },
     queryFn: async () => await GetProductsFromCart(dataUser?.user.id),
   });
 
@@ -60,15 +65,26 @@ const CartContent = () => {
   if (cartProductsIsLoading) {
     return <div>Loading...</div>;
   }
-  if (
-    (productsZustand === undefined || productsZustand.length === 0) &&
-    cartProductsData
-  ) {
-    setProducts(cartProductsData);
-  }
+  // if (cartProductsData) {
+  //   // if (cartProductsData.length !== 0 && cartProductsData !== undefined) {
+  //   if (
+  //     productsZustand === undefined ||
+  //     productsZustand.length === 0 ||
+  //     productsZustand.length > cartProductsData.length
+  //   ) {
+  //     console.log(cartProductsData);
+  //     cartProductsData.length > 0 && setProducts(cartProductsData);
+  //   }
+  //   // }
+  // }
 
   return (
     <div className="flex flex-col gap-3 ">
+      {productsZustand.length === 0 && (
+        <div>
+          <p>Você ainda não possui nenhum produto no carrinho.</p>
+        </div>
+      )}
       {productsZustand.length > 0 &&
         productsZustand.map((product) => {
           return (

@@ -4,7 +4,7 @@ const nextConfig = {
         domains: ["cdn.discordapp.com"]
     },
     trailingSlash: true,
-    reactStrictMode: true,
+    // reactStrictMode: true,
 }
 
 module.exports = nextConfig
