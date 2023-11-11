@@ -1,26 +1,20 @@
 "use client";
+import { ProductWithTotalPrice } from "@/helpers/productPrice";
 import { UserCart } from "@prisma/client";
 import { create } from "zustand";
-import { useQuery } from "react-query";
-import GetProductsFromCart from "@/requests/get-products-from-cart";
-import { useSession } from "next-auth/react";
-import { DataUser } from "@/app/product/[slug]/components/product-details";
-import { ProductWithTotalPrice } from "@/helpers/productPrice";
 
-export interface OptionalIdUserCart extends Omit<UserCart, "id"> {
+export interface OptionalIdUserCart extends Omit<UserCart, "id" | "userId"> {
   id?: string | undefined;
-  userId: string;
+  userId?: string;
   productId: string;
   quantity: number;
   product: ProductWithTotalPrice;
 }
 
 interface ICartProducts {
-  // userId: string;
   products: OptionalIdUserCart[];
   addProduct: (productReceived: OptionalIdUserCart) => void;
   setProducts: (products: OptionalIdUserCart[]) => void;
-  // setUserId: (userId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   deleteProduct: (productId: string) => void;
 }

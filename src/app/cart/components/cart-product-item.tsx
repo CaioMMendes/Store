@@ -11,6 +11,7 @@ import { useDebounce } from "@/helpers/use-debounce";
 import UpdateCartProductQuantity from "@/requests/update-cart-product-quantity";
 import Link from "next/link";
 import { SheetClose } from "../../../components/ui/sheet";
+import { usePathname } from "next/navigation";
 
 interface CartUserProduct {
   cartProductId: string | undefined;
@@ -42,6 +43,8 @@ const CartProductItem = ({
   const debounceQuantity = useDebounce(quantity);
   const firstUpdate = useRef(true);
   const [render, setRender] = useState(false);
+  const pathname = usePathname();
+  const pathnameSelected = pathname.split("/")[1];
 
   useEffect(() => {
     if (firstUpdate.current) {
@@ -74,7 +77,7 @@ const CartProductItem = ({
   };
   const handleDeleteCartItem = ({ cartProductId }: CartUserProduct) => {
     if (!cartProductId) {
-      return alert("voce esta deslogado");
+      return alert("voce está deslogado");
     }
 
     DeleteProductCart({ cartProductId });
@@ -83,9 +86,30 @@ const CartProductItem = ({
 
   return (
     <div className="flex h-full w-full items-center justify-between gap-2">
-      <SheetClose asChild>
-        <Link href={`/product/${product.slug}`} className="h-full">
-          <div className="flex h-full w-28 items-center justify-center rounded-lg bg-accent">
+      {pathnameSelected !== "cart" ? (
+        <SheetClose asChild>
+          <Link href={`/product/${product.slug}`} className="h-full">
+            <div className="flex h-full w-28 items-center justify-center rounded-lg bg-accent">
+              <Image
+                src={product.imageURLs[0]}
+                alt={product.name}
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="h-auto max-h-[75%] w-auto max-w-[90%]"
+                style={{
+                  objectFit: "contain",
+                }}
+              />
+            </div>
+          </Link>
+        </SheetClose>
+      ) : (
+        <Link
+          href={`/product/${product.slug}`}
+          className="flex h-full min-h-[8.75rem] items-center justify-center"
+        >
+          <div className="flex h-full min-h-[8.75rem] w-28 items-center justify-center rounded-lg bg-accent">
             <Image
               src={product.imageURLs[0]}
               alt={product.name}
@@ -99,8 +123,8 @@ const CartProductItem = ({
             />
           </div>
         </Link>
-      </SheetClose>
-      <div className="flex flex-1 items-center gap-2">
+      )}
+      <div className="flex flex-1 items-center justify-between gap-2">
         <div className="flex flex-col gap-2">
           <p>{product.name}</p>
           <div className="flex  flex-wrap gap-2">

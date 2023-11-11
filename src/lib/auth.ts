@@ -12,7 +12,7 @@ export const authOptions: AuthOptions = {
     }),
   ],
   secret: process.env.NEXT_AUTH_SECRET,
-  debug: true,
+  // debug: true,
   //serve pra retornar o user na response
   callbacks: {
     async session({ session, token, user }) {

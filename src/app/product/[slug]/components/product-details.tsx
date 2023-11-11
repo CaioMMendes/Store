@@ -12,6 +12,7 @@ import ProductDescription from "./product-description";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
+import ToastFunction from "@/components/toast-function";
 
 export interface DataUser {
   id?: string | undefined;
@@ -22,7 +23,7 @@ export interface DataUser {
 
 export interface HandleAddProductProps {
   product: ProductWithTotalPrice;
-  userId: string | undefined;
+  userId?: string | undefined;
   quantity: number;
   status: "loading" | "authenticated" | "unauthenticated";
 }
@@ -48,23 +49,28 @@ const ProductDetails = ({ product }: { product: ProductWithTotalPrice }) => {
     quantity,
     status,
   }: HandleAddProductProps) => {
-    if (status !== "authenticated") {
-      //salvar no localStorage
+    if (status !== "authenticated" || !userId || userId === undefined) {
+      addProduct({
+        product: product,
+        productId: product.id,
+        quantity,
+      });
+      ToastFunction({
+        title: "Produto adicionado com sucesso!",
+        name: "Carrinho",
+        router: router,
+      });
+      return;
     }
-    if (!userId || userId === undefined) {
-      return alert("Ocorreu um erro, você está deslogado");
-    }
+    // if (!userId || userId === undefined) {
+    //   return alert("Ocorreu um erro, você está deslogado");
+    // }
     AddProductToCart({ userId, productId: product.id, quantity });
     addProduct({ product: product, productId: product.id, userId, quantity });
-    toast({
-      className: "bg-primary !bottom-0",
+    ToastFunction({
       title: "Produto adicionado com sucesso!",
-      duration: 2000,
-      action: (
-        <ToastAction onClick={() => router.push("/cart")} altText="Carrinho">
-          Carrinho
-        </ToastAction>
-      ),
+      name: "Carrinho",
+      router: router,
     });
   };
   return (

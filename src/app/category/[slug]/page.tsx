@@ -2,16 +2,17 @@
 import DropDownCatalog from "@/components/dropdown-catalog";
 import ProductItem from "@/components/productItem";
 import { computeProductTotalPrice } from "@/helpers/productPrice";
-import { prismaClient } from "@/lib/prisma";
-import DropdownOrderBy from "./components/select-orderby";
-import { useQuery } from "react-query";
-import ProductItemRequest from "@/requests/product-item";
 import GetAllCategoriesRequest from "@/requests/get-all-categories";
-import { Product } from "@prisma/client";
 import GetCategoryProductsRequest from "@/requests/get-category-products";
+import { Product } from "@prisma/client";
+import { useQuery } from "react-query";
 import LoadingCategoryProducts from "./components/loading-category-products";
+import DropdownOrderBy from "./components/select-orderby";
+import orderBy from "@/providers/order-by-provider";
 
 const CategoryProductsPage = ({ params }: { params: { slug: string } }) => {
+  const orderByZustand = orderBy((state) => state.orderBy);
+
   const {
     data: categoriesData,
     isError: categoriesIsError,
@@ -25,8 +26,9 @@ const CategoryProductsPage = ({ params }: { params: { slug: string } }) => {
     isError: productsCategoryIsError,
     isLoading: productsCategoryIsLoading,
   } = useQuery({
-    queryKey: [`getAllProductsCategory${params.slug}`],
-    queryFn: async () => await GetCategoryProductsRequest(params.slug),
+    queryKey: [`getAllProductsCategory${params.slug}`, orderByZustand],
+    queryFn: async () =>
+      await GetCategoryProductsRequest(params.slug, orderByZustand),
   });
 
   if (categoriesIsError || productsCategoryIsError) {
@@ -40,7 +42,7 @@ const CategoryProductsPage = ({ params }: { params: { slug: string } }) => {
 
   if (!productsCategoryData) {
     return (
-      <div className="flex items-center justify-center text-xl">
+      <div className="flex items-center justify-center p-3 text-justify text-xl">
         Não foi possível encontrar nenhum produto
       </div>
     );
