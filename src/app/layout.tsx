@@ -6,6 +6,7 @@ import Header from "@/components/header/header";
 import { AuthProvider } from "@/providers/auth";
 import Footer from "@/components/footer";
 import ReactQueryProvider from "@/providers/react-query";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,7 @@ export default function RootLayout({
             >
               <Header />
               <div className="flex-1">{children}</div>
+              <Toaster />
               <Footer />
             </ThemeProvider>
           </ReactQueryProvider>

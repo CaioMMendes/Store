@@ -2,20 +2,17 @@
 import PercentageBadge from "@/components/percentage-badge";
 import { Button } from "@/components/ui/button";
 
-import {
-  ProductWithTotalPrice,
-  computeProductTotalPrice,
-} from "@/helpers/productPrice";
-import { Product } from "@prisma/client";
+import { ProductWithTotalPrice } from "@/helpers/productPrice";
+import cartProducts from "@/providers/cart-provider";
+import AddProductToCart from "@/requests/add-product-to-cart";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { useState } from "react";
 import ProductDescription from "./product-description";
-import { TruckIcon } from "lucide-react";
-import Image from "next/image";
-import cartProducts from "@/providers/cart-provider";
-import { useSession } from "next-auth/react";
-import { v4 as uuidv4 } from "uuid";
-import GetProductsFromCart from "@/requests/get-products-from-cart";
-import AddProductToCart from "@/requests/add-product-to-cart";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { useRouter } from "next/navigation";
+import ToastFunction from "@/components/toast-function";
 
 export interface DataUser {
   id?: string | undefined;
@@ -26,7 +23,7 @@ export interface DataUser {
 
 export interface HandleAddProductProps {
   product: ProductWithTotalPrice;
-  userId: string | undefined;
+  userId?: string | undefined;
   quantity: number;
   status: "loading" | "authenticated" | "unauthenticated";
 }
@@ -35,6 +32,8 @@ const ProductDetails = ({ product }: { product: ProductWithTotalPrice }) => {
   const { data, status } = useSession();
   const dataUser = data as { user: DataUser };
   const [quantity, setQuantity] = useState(1);
+  const { toast } = useToast();
+  const router = useRouter();
 
   const addProduct = cartProducts((state) => state.addProduct);
   const handleQuantity = (status: string) => {
@@ -50,18 +49,33 @@ const ProductDetails = ({ product }: { product: ProductWithTotalPrice }) => {
     quantity,
     status,
   }: HandleAddProductProps) => {
-    if (status !== "authenticated") {
-      //salvar no localStorage
+    if (status !== "authenticated" || !userId || userId === undefined) {
+      addProduct({
+        product: product,
+        productId: product.id,
+        quantity,
+      });
+      ToastFunction({
+        title: "Produto adicionado com sucesso!",
+        name: "Carrinho",
+        router: router,
+      });
+      return;
     }
-    if (!userId || userId === undefined) {
-      return alert("Ocorreu um erro, atualize a página e tente novamente");
-    }
+    // if (!userId || userId === undefined) {
+    //   return alert("Ocorreu um erro, você está deslogado");
+    // }
     AddProductToCart({ userId, productId: product.id, quantity });
     addProduct({ product: product, productId: product.id, userId, quantity });
+    ToastFunction({
+      title: "Produto adicionado com sucesso!",
+      name: "Carrinho",
+      router: router,
+    });
   };
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4 ">
+      <div className=" flex flex-col gap-2">
         <div className="flex flex-col gap-1">
           <p className="text-base text-primary">Disponível em estoque</p>
           <p className="text-xl font-semibold">{product.name}</p>

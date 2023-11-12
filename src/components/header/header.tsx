@@ -1,20 +1,9 @@
+import Image from "next/image";
+import Link from "next/link";
+import CartSheet from "../../app/cart/components/cart-sheet";
 import { HandleTheme } from "../handleTheme";
-import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import HeaderMenu from "./headerMenu";
-import {
-  HomeIcon,
-  ListOrderedIcon,
-  LogInIcon,
-  MenuIcon,
-  PercentCircleIcon,
-  PercentIcon,
-  ShoppingCartIcon,
-} from "lucide-react";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
-import Link from "next/link";
-import Image from "next/image";
-import CartSheet from "../cart/cart-sheet";
 
 function Header() {
   return (

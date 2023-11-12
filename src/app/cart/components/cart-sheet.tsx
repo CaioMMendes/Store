@@ -1,14 +1,14 @@
 "use client";
-import { MenuIcon, ShoppingCartIcon } from "lucide-react";
-import { Button } from "../ui/button";
+import { ShoppingCartIcon } from "lucide-react";
+import Link from "next/link";
+import { Button } from "../../../components/ui/button";
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetHeader,
   SheetTrigger,
-} from "../ui/sheet";
-import Link from "next/link";
+} from "../../../components/ui/sheet";
 import CartContent from "./cart-content";
 
 const CartSheet = () => {
@@ -22,20 +22,13 @@ const CartSheet = () => {
         </SheetTrigger>
         <SheetContent
           side={"right"}
-          className="flex h-full w-[90%] flex-col gap-2 overflow-auto pl-3"
+          className="flex h-full  w-[90%] flex-col gap-2 overflow-auto pb-3 pl-3"
         >
           <SheetHeader className="flex w-full flex-row items-center justify-start gap-2">
             <ShoppingCartIcon width={20} />
             Carrinho
           </SheetHeader>
           <CartContent />
-          <div>
-            <Link href={"/cart"}>
-              <SheetClose asChild>
-                <Button>Ver Carrinho</Button>
-              </SheetClose>
-            </Link>
-          </div>
         </SheetContent>
       </Sheet>
     </div>

@@ -1,3 +1,5 @@
+import { OrderByProps } from "@/providers/order-by-provider";
+
 const GetAllCategoriesRequest = async () => {
   const response = await fetch(`/api/categories/getAll`, {
     method: "GET",
