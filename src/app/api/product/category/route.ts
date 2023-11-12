@@ -15,33 +15,33 @@ export async function POST(request: Request) {
     if (type === "discountPercentage") {
       products =
         await prismaClient.$queryRaw`select "Product".*,("basePrice"-("discountPercentage"*"basePrice"/100))
-      as "price" from "Category" join "Product"  
+      as "price" from "Category" inner join "Product"  
       on "Category"."id"="Product"."categoryId" where "Product"."discountPercentage">0  order by "Product"."discountPercentage" desc`;
     } else if (type === "price" && lowestBiggest === "desc") {
       products =
         await prismaClient.$queryRaw`select "Product".*,("basePrice"-("discountPercentage"*"basePrice"/100))
-      as "price" from "Category" join "Product"  
+      as "price" from "Category" inner join "Product"  
       on "Category"."id"="Product"."categoryId" where "Product"."discountPercentage">0  order by "price" desc`;
     } else if (type === "price" && lowestBiggest === "asc") {
       products =
         await prismaClient.$queryRaw`select "Product".*,("basePrice"-("discountPercentage"*"basePrice"/100))
-      as "price" from "Category" join "Product"  
+      as "price" from "Category" inner join "Product"  
       on "Category"."id"="Product"."categoryId" where "Product"."discountPercentage">0  order by "price" asc`;
     }
   } else if (type === "discountPercentage") {
     products =
       await prismaClient.$queryRaw`select "Product".*,("basePrice"-("discountPercentage"*"basePrice"/100))
-      as "price" from "Category" join "Product"  
+      as "price" from "Category" inner join "Product"  
       on "Category"."id"="Product"."categoryId" where "Category"."slug"=${slug}  order by "Product"."discountPercentage" desc`;
   } else if (lowestBiggest === "desc" && type === "price") {
     products =
       await prismaClient.$queryRaw`select "Product".*,("basePrice"-("discountPercentage"*"basePrice"/100))
-      as "price" from "Category" join "Product"  
+      as "price" from "Category" inner join "Product"  
       on "Category"."id"="Product"."categoryId" where "Category"."slug"=${slug}  order by "price" desc`;
   } else if (lowestBiggest === "asc" && type === "price") {
     products =
       await prismaClient.$queryRaw`select "Product".*,("basePrice"-("discountPercentage"*"basePrice"/100))
-      as "price" from "Category" join "Product"  
+      as "price" from "Category" inner join "Product"  
       on "Category"."id"="Product"."categoryId" where "Category"."slug"=${slug}  order by "price" asc`;
   }
 
