@@ -1,25 +1,27 @@
 "use client";
+import { StorageProductProps } from "@/app/product/[slug]/components/product-details";
 import { ProductWithTotalPrice } from "@/helpers/productPrice";
-import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Button } from "../../../components/ui/button";
-import { TrashIcon } from "lucide-react";
-import cartProducts from "@/providers/cart-provider";
-import { UserCart } from "@prisma/client";
-import DeleteProductCart from "@/requests/delete-product-cart";
 import { useDebounce } from "@/helpers/use-debounce";
+import cartProducts from "@/providers/cart-provider";
+import DeleteProductCart from "@/requests/delete-product-cart";
 import UpdateCartProductQuantity from "@/requests/update-cart-product-quantity";
+import { TrashIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { SheetClose } from "../../../components/ui/sheet";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { Button } from "../../../components/ui/button";
+import { SheetClose } from "../../../components/ui/sheet";
 
 interface CartUserProduct {
   cartProductId: string | undefined;
 }
 interface HandleQuantityProps {
-  status: string;
+  status: "unauthenticated" | "authenticated" | "loading";
+  product: ProductWithTotalPrice;
   cartProductId: string | undefined;
   quantity: number;
+  increaseDecrease: "increase" | "decrease";
 }
 interface ReponseType {
   message?: string;
@@ -64,24 +66,88 @@ const CartProductItem = ({
     status,
     cartProductId,
     quantity,
+    increaseDecrease,
+    product,
   }: HandleQuantityProps) => {
+    if (status === "unauthenticated") {
+      const productsLocalStorage = JSON.parse(
+        localStorage.getItem("cart-products") || "[]",
+      );
+      if (increaseDecrease === "increase") {
+        const updatedQuantityProductStorage = productsLocalStorage.map(
+          (productStorage: StorageProductProps) => {
+            if (productStorage.productId === product.id) {
+              return {
+                ...productStorage,
+                quantity: productStorage.quantity + 1,
+              };
+            }
+            return productStorage;
+          },
+        );
+        localStorage.setItem(
+          "cart-products",
+          JSON.stringify(updatedQuantityProductStorage),
+        );
+
+        return updateQuantity(product.id, quantity + 1, status);
+      } else if (increaseDecrease === "decrease") {
+        const updatedQuantityProductStorage = productsLocalStorage.map(
+          (productStorage: StorageProductProps) => {
+            if (productStorage.productId === product.id) {
+              return {
+                ...productStorage,
+                quantity: productStorage.quantity - 1,
+              };
+            }
+            return productStorage;
+          },
+        );
+        localStorage.setItem(
+          "cart-products",
+          JSON.stringify(updatedQuantityProductStorage),
+        );
+        return quantity > 1 && updateQuantity(product.id, quantity - 1, status);
+      }
+    }
+
     if (cartProductId === undefined) {
       return;
     }
     setRender(true);
-    if (status === "aumentar") {
-      return updateQuantity(cartProductId, quantity + 1);
-    } else if (status === "diminuir") {
-      return quantity > 1 && updateQuantity(cartProductId, quantity - 1);
+    if (increaseDecrease === "increase") {
+      return updateQuantity(cartProductId, quantity + 1, status);
+    } else if (increaseDecrease === "decrease") {
+      return (
+        quantity > 1 && updateQuantity(cartProductId, quantity - 1, status)
+      );
     }
   };
-  const handleDeleteCartItem = ({ cartProductId }: CartUserProduct) => {
+  const handleDeleteCartItem = ({
+    cartProductId,
+    product,
+  }: {
+    cartProductId: string | undefined;
+    product: ProductWithTotalPrice;
+  }) => {
+    if (status === "unauthenticated") {
+      const productsLocalStorage = JSON.parse(
+        localStorage.getItem("cart-products") || "[]",
+      );
+      const newProducts = productsLocalStorage.filter(
+        (productStorage: StorageProductProps) =>
+          product.id !== productStorage.productId,
+      );
+      deleteProduct(product.id, status);
+
+      return localStorage.setItem("cart-products", JSON.stringify(newProducts));
+    }
     if (!cartProductId) {
       return alert("voce está deslogado");
+    } else {
+      DeleteProductCart({ cartProductId });
+      deleteProduct(cartProductId, status);
     }
-
-    DeleteProductCart({ cartProductId });
-    deleteProduct(cartProductId);
   };
 
   return (
@@ -143,9 +209,11 @@ const CartProductItem = ({
               className="h-3 w-3"
               onClick={() =>
                 handleQuantity({
-                  status: "diminuir",
+                  increaseDecrease: "decrease",
                   cartProductId,
+                  product,
                   quantity: quantity,
+                  status,
                 })
               }
             >
@@ -157,9 +225,11 @@ const CartProductItem = ({
               className="h-3 w-3"
               onClick={() =>
                 handleQuantity({
-                  status: "aumentar",
+                  increaseDecrease: "increase",
                   cartProductId,
+                  product,
                   quantity: quantity,
+                  status,
                 })
               }
             >
@@ -173,6 +243,7 @@ const CartProductItem = ({
           onClick={() =>
             handleDeleteCartItem({
               cartProductId,
+              product,
             })
           }
         >

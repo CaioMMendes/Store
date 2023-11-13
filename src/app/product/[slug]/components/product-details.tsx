@@ -28,6 +28,12 @@ export interface HandleAddProductProps {
   status: "loading" | "authenticated" | "unauthenticated";
 }
 
+export interface StorageProductProps {
+  product: ProductWithTotalPrice;
+  quantity: number;
+  productId: string;
+}
+
 const ProductDetails = ({ product }: { product: ProductWithTotalPrice }) => {
   const { data, status } = useSession();
   const dataUser = data as { user: DataUser };
@@ -50,6 +56,49 @@ const ProductDetails = ({ product }: { product: ProductWithTotalPrice }) => {
     status,
   }: HandleAddProductProps) => {
     if (status !== "authenticated" || !userId || userId === undefined) {
+      const cartProducts = JSON.parse(
+        localStorage.getItem("cart-products") || "[]",
+      );
+      if (cartProducts.length !== 0) {
+        let productFinded = false;
+        const newQuantityCartProducts = cartProducts.map(
+          (actualProduct: StorageProductProps) => {
+            if (actualProduct.product.id === product.id) {
+              productFinded = true;
+              return {
+                product: actualProduct.product,
+                quantity: actualProduct.quantity + quantity,
+                productId: actualProduct.productId,
+              };
+            } else {
+              return actualProduct;
+            }
+          },
+        );
+        if (productFinded) {
+          localStorage.setItem(
+            "cart-products",
+            JSON.stringify(newQuantityCartProducts),
+          );
+        } else {
+          newQuantityCartProducts.push({
+            product,
+            quantity,
+            productId: product.id,
+          });
+          localStorage.setItem(
+            "cart-products",
+            JSON.stringify(newQuantityCartProducts),
+          );
+        }
+      } else {
+        localStorage.setItem(
+          "cart-products",
+          JSON.stringify([{ product, quantity, productId: product.id }]),
+        );
+        console.log(localStorage.getItem("cart-products"));
+      }
+
       addProduct({
         product: product,
         productId: product.id,

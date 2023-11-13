@@ -15,21 +15,39 @@ interface ICartProducts {
   products: OptionalIdUserCart[];
   addProduct: (productReceived: OptionalIdUserCart) => void;
   setProducts: (products: OptionalIdUserCart[]) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
-  deleteProduct: (productId: string) => void;
+  updateQuantity: (
+    productId: string,
+    quantity: number,
+    status: "unauthenticated" | "loading" | "authenticated",
+  ) => void;
+  deleteProduct: (
+    productId: string,
+    status: "authenticated" | "unauthenticated" | "loading",
+  ) => void;
 }
 
 const cartProducts = create<ICartProducts>()((set, get) => ({
   products: [],
-  updateQuantity: (productId, quantity) => {
-    set((state) => ({
-      products: state.products.map((product) => {
-        if (product.id === productId) {
-          return { ...product, quantity: quantity };
-        }
-        return product;
-      }),
-    }));
+  updateQuantity: (productId, quantity, status) => {
+    if (status === "authenticated") {
+      set((state) => ({
+        products: state.products.map((product) => {
+          if (product.id === productId) {
+            return { ...product, quantity: quantity };
+          }
+          return product;
+        }),
+      }));
+    } else {
+      set((state) => ({
+        products: state.products.map((product) => {
+          if (product.product.id === productId) {
+            return { ...product, quantity: quantity };
+          }
+          return product;
+        }),
+      }));
+    }
   },
   setProducts: (products) => {
     // if (products.length !== 0 && products !== undefined) {
@@ -53,12 +71,18 @@ const cartProducts = create<ICartProducts>()((set, get) => ({
     set({ products });
     //  set((state) => ({}));
   },
-  deleteProduct: (productId) => {
-    const a = get().products;
-    console.log(a.filter((product) => product.id !== productId));
-    set((state) => ({
-      products: state.products.filter((product) => product.id !== productId),
-    }));
+  deleteProduct: (productId, status) => {
+    if (status === "authenticated") {
+      set((state) => ({
+        products: state.products.filter((product) => product.id !== productId),
+      }));
+    } else {
+      set((state) => ({
+        products: state.products.filter(
+          (product) => product.productId !== productId,
+        ),
+      }));
+    }
   },
 }));
 export default cartProducts;

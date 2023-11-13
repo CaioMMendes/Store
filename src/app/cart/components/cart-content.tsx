@@ -8,7 +8,7 @@ import cartProducts from "@/providers/cart-provider";
 import { queryClient } from "@/providers/query-client";
 import GetProductsFromCart from "@/requests/get-products-from-cart";
 import { useSession } from "next-auth/react";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useQuery } from "react-query";
 import { v4 as uuidv4 } from "uuid";
 import CartDetailsLine from "./cart-details-line";
@@ -17,7 +17,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import { SheetClose } from "@/components/ui/sheet";
-interface DataProps {
+export interface DataProps {
   user: DataUser;
 }
 
@@ -46,6 +46,13 @@ const CartContent = () => {
     },
     queryFn: async () => await GetProductsFromCart(dataUser?.user.id),
   });
+  useEffect(() => {
+    const localStorageProducts = JSON.parse(
+      localStorage.getItem("cart-products") || "[]",
+    );
+    setProducts(localStorageProducts);
+    console.log("first");
+  }, []); // eslint-disable-line
 
   const productsSubtotal = useMemo(
     () => productsSubtotalCalc(productsZustand),
