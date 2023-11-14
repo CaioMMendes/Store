@@ -4,6 +4,9 @@ const nextConfig = {
         domains: ["cdn.discordapp.com"]
     },
     trailingSlash: true,
+    experimental: {
+        serverActions: true
+    },
     // reactStrictMode: true,
 }
 

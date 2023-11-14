@@ -17,6 +17,9 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import { SheetClose } from "@/components/ui/sheet";
+import { createCheckout } from "@/actions/checkout";
+import { loadStripe } from "@stripe/stripe-js";
+
 export interface DataProps {
   user: DataUser;
 }
@@ -67,11 +70,29 @@ const CartContent = () => {
     [productsZustand],
   );
 
+  const handleFinishPurchase = async () => {
+    if (status !== "authenticated") {
+      return alert("Você precisa realizar o login para finalizar a compra.");
+    }
+    try {
+      const checkout = await createCheckout(productsZustand);
+
+      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
+      stripe?.redirectToCheckout({
+        sessionId: checkout.id,
+      });
+    } catch (error) {
+      alert(
+        "Ocorreu um erro ao tentar realizar a compra! \nRecarregue a página e tente novamente em alguns instantes.",
+      );
+    }
+  };
+
   if (cartProductsIsError) {
     alert("Ocorreu um erro");
     return <div>Ocorreu um erro!</div>;
   }
-  if (cartProductsIsLoading) {
+  if (cartProductsIsLoading || status === "loading") {
     return <div>Loading...</div>;
   }
 
@@ -129,7 +150,10 @@ const CartContent = () => {
               value={`R$ ${productsTotal?.toFixed(2)}`}
             />
           </div>
-          <Button className="flex w-full text-base font-semibold">
+          <Button
+            className="flex w-full text-base font-semibold"
+            onClick={handleFinishPurchase}
+          >
             Finalizar compra
           </Button>
           {pathnameSelected !== "cart" && (

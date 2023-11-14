@@ -17,6 +17,7 @@ const SearchProductPage = () => {
     isLoading: productsIsLoading,
   } = useQuery({
     queryKey: [`getProducts${searchParams.get("product")}`],
+
     queryFn: async () =>
       await SearchProductRequest(searchParams.get("product")),
   });

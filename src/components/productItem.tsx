@@ -10,7 +10,7 @@ interface ProductItemProps {
 }
 const ProductItem = ({ product }: ProductItemProps) => {
   return (
-    <Link href={`/product/${product.slug}`}>
+    <Link href={`/product/${product.slug}`} scroll={true}>
       <div className=" flex cursor-pointer flex-col gap-4">
         <div className="relative flex h-40  flex-col items-center justify-center rounded-lg bg-accent ">
           <PercentageBadge

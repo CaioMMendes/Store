@@ -16,7 +16,7 @@ interface ProductDetailPageProps {
 
 const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   const { data, isError, isLoading } = useQuery({
-    queryKey: [`getProductItem${params.slug}`],
+    queryKey: [`getProductItem${params.slug}`, params.slug],
     queryFn: async () => await ProductItemRequest(params.slug),
   });
 
