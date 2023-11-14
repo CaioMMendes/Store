@@ -66,8 +66,11 @@ const HeaderMenu = () => {
             )}
             <div className="order-3 flex flex-col gap-2">
               <HeaderMenuItem name={"Início"} href={""} />
-              <HeaderMenuItem name={"Ofertas"} href={"category/deals"} />
 
+              {status === "authenticated" && (
+                <HeaderMenuItem name={"Meus pedidos"} href={"user/requests"} />
+              )}
+              <HeaderMenuItem name={"Ofertas"} href={"category/deals"} />
               <HeaderMenuItem name={"Catálogo"} href={"catalog"} />
 
               {status === "authenticated" && (
