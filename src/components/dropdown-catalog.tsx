@@ -49,9 +49,9 @@ const DropDownCatalog = ({ catalog, category }: CatalogItems) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        {pathname === "/catalog" ? (
+        {pathname === "/catalog/" ? (
           <Button variant="outline" className="gap-1.5 ">
-            {icons["catalog" as keyof typeof icons]}Catálogo
+            {icons["catalog" as keyof typeof icons]} Catálogo
           </Button>
         ) : (
           <Button variant="outline" className="gap-1.5  capitalize">
@@ -78,8 +78,8 @@ const DropDownCatalog = ({ catalog, category }: CatalogItems) => {
             )
           );
         })}
-        {pathname !== "/category/deals" && (
-          <Link href={"/category/deals"}>
+        {pathname !== "/category/deals/" && (
+          <Link href={"/category/deals/"}>
             <DropdownMenuItem className="flex cursor-pointer justify-center gap-1.5">
               <span className="flex w-1/4 justify-center">
                 {icons["deals" as keyof typeof icons]}
@@ -88,8 +88,8 @@ const DropDownCatalog = ({ catalog, category }: CatalogItems) => {
             </DropdownMenuItem>
           </Link>
         )}
-        {pathname !== "/catalog" && (
-          <Link href={"/catalog"}>
+        {pathname !== "/catalog/" && (
+          <Link href={"/catalog/"}>
             <DropdownMenuItem className="flex cursor-pointer justify-center gap-1.5">
               <span className="flex w-1/4 justify-center">
                 {icons["catalog" as keyof typeof icons]}

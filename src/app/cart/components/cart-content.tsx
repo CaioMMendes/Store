@@ -50,11 +50,12 @@ const CartContent = () => {
     queryFn: async () => await GetProductsFromCart(dataUser?.user.id),
   });
   useEffect(() => {
-    const localStorageProducts = JSON.parse(
-      localStorage.getItem("cart-products") || "[]",
-    );
-    setProducts(localStorageProducts);
-    console.log("first");
+    if (status === "unauthenticated") {
+      const localStorageProducts = JSON.parse(
+        localStorage.getItem("cart-products") || "[]",
+      );
+      setProducts(localStorageProducts);
+    }
   }, []); // eslint-disable-line
 
   const productsSubtotal = useMemo(

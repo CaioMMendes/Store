@@ -4,6 +4,7 @@ import {
   DataUser,
   StorageProductProps,
 } from "@/app/product/[slug]/components/product-details";
+import cartProducts from "@/providers/cart-provider";
 import AddProductToCart from "@/requests/add-product-to-cart";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -14,6 +15,9 @@ const RedirectSigninPage = () => {
   const dataUser = data as { user: DataUser };
   const router = useRouter();
   const pathname = searchParams.get("pathname");
+  const addProduct = cartProducts((state) => state.addProduct);
+  const zustandProducts = cartProducts((state) => state.products);
+
   console.log(dataUser);
   console.log(status);
   if (status === "loading") {
@@ -33,7 +37,14 @@ const RedirectSigninPage = () => {
         productId: product.productId,
         quantity: product.quantity,
       });
+      addProduct({
+        userId: dataUser.user.id as string,
+        productId: product.productId,
+        quantity: product.quantity,
+        product: product.product,
+      });
     });
+    // console.log(zustandProducts);
     localStorage.setItem("cart-products", "[]");
     return pathname ? router.push(pathname) : router.push("/");
   }

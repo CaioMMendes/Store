@@ -68,8 +68,10 @@ const cartProducts = create<ICartProducts>()((set, get) => ({
     } else {
       products.push(productReceived);
     }
-    set({ products });
-    //  set((state) => ({}));
+    // set({ products });
+    set((state) => ({
+      products: [...products],
+    }));
   },
   deleteProduct: (productId, status) => {
     if (status === "authenticated") {

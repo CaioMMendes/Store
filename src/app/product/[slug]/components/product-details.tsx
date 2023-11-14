@@ -42,6 +42,8 @@ const ProductDetails = ({ product }: { product: ProductWithTotalPrice }) => {
   const router = useRouter();
 
   const addProduct = cartProducts((state) => state.addProduct);
+  const productsZustand = cartProducts((state) => state.products);
+  console.log(productsZustand);
   const handleQuantity = (status: string) => {
     if (status === "aumentar") {
       return setQuantity((prev) => prev + 1);
@@ -55,7 +57,12 @@ const ProductDetails = ({ product }: { product: ProductWithTotalPrice }) => {
     quantity,
     status,
   }: HandleAddProductProps) => {
-    if (status !== "authenticated" || !userId || userId === undefined) {
+    if (
+      status !== "authenticated" &&
+      status !== "loading" &&
+      !userId &&
+      userId === undefined
+    ) {
       const cartProducts = JSON.parse(
         localStorage.getItem("cart-products") || "[]",
       );
@@ -111,9 +118,9 @@ const ProductDetails = ({ product }: { product: ProductWithTotalPrice }) => {
       });
       return;
     }
-    // if (!userId || userId === undefined) {
-    //   return alert("Ocorreu um erro, você está deslogado");
-    // }
+    if (!userId || userId === undefined) {
+      return;
+    }
     AddProductToCart({ userId, productId: product.id, quantity });
     addProduct({ product: product, productId: product.id, userId, quantity });
     ToastFunction({

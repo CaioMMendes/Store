@@ -1,8 +1,8 @@
 "use client";
 
 import { DataProps } from "@/app/cart/components/cart-content";
-import { signIn, useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import LoginUserRequests from "./components/login";
 
 const UserRequestsPage = () => {
