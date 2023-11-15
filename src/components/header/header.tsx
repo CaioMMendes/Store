@@ -7,7 +7,7 @@ import HeaderMenu from "./headerMenu";
 
 function Header() {
   return (
-    <div className="sticky top-0 z-[60] ">
+    <div className="sticky top-0 z-[60] bg-background ">
       <Card className="relative z-[60] flex w-full items-center justify-between rounded-none border-x-0 border-b-[1.5px]  border-t-0 bg-background px-4 py-3">
         <div className="z-[61]">
           <HeaderMenu />
@@ -17,7 +17,7 @@ function Header() {
             href={"/"}
             className="z-[61] flex items-center justify-center gap-2"
           >
-            <div className="flex h-7 w-8">
+            <div className="z-[61] flex h-7 w-8">
               <Image
                 src="/logo.png"
                 alt="logo"

@@ -66,7 +66,7 @@ const CartSheet = () => {
         </SheetTrigger>
         <SheetContent
           side={"right"}
-          className="flex h-full  w-[90%] flex-col gap-2 overflow-auto pb-3 pl-3"
+          className="z-[80] flex h-full  w-[90%] flex-col gap-2 overflow-auto pb-3 pl-3"
         >
           <SheetHeader className="flex w-full flex-row items-center justify-start gap-2">
             <ShoppingCartIcon width={20} />

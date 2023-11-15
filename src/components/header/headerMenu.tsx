@@ -29,7 +29,7 @@ const HeaderMenu = () => {
             <MenuIcon />
           </Button>
         </SheetTrigger>
-        <SheetContent side={"left"} className="flex flex-col gap-2 pl-3">
+        <SheetContent side={"left"} className="z-[80] flex flex-col gap-2 pl-3">
           <div className=" flex flex-col gap-2">
             <SheetTitle
               className={`pl-4 text-lg font-semibold ${
