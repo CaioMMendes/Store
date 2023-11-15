@@ -7,6 +7,7 @@ import ProductDetails from "./components/product-details";
 import { computeProductTotalPrice } from "@/helpers/productPrice";
 import ProductDescription from "./components/product-description";
 import ProductList from "@/components/lists/product-list";
+import { useEffect } from "react";
 
 interface ProductDetailPageProps {
   params: {
@@ -15,6 +16,9 @@ interface ProductDetailPageProps {
 }
 
 const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { data, isError, isLoading } = useQuery({
     queryKey: [`getProductItem${params.slug}`, params.slug],
 
@@ -29,6 +33,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   if (isLoading) {
     return <LoadingProductImages />;
   }
+
   if (!data) {
     return (
       <div className="flex h-full w-full flex-col items-center justify-center p-5 ">
@@ -39,6 +44,7 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
       </div>
     );
   }
+
   return (
     <div className="flex flex-col gap-4 pb-5">
       <ProductImages imageUrls={data.imageURLs} name={data.name} />
