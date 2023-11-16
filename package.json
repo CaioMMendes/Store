@@ -11,7 +11,8 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "devdebug": "cross-env NODE_OPTIONS='--inspect' next dev"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -32,6 +33,7 @@
     "@stripe/stripe-js": "^2.1.11",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "cross-env": "^7.0.3",
     "keen-slider": "^6.8.6",
     "lucide-react": "^0.288.0",
     "next": "13.5.6",

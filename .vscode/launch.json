@@ -22,7 +22,8 @@
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",
         "action": "debugWithChrome"
-      }
+      },
+      "autoAttachChildProcesses": true
     }
   ]
 }
