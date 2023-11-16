@@ -8,7 +8,7 @@ import cartProducts from "@/providers/cart-provider";
 import { queryClient } from "@/providers/query-client";
 import GetProductsFromCart from "@/requests/get-products-from-cart";
 import { useSession } from "next-auth/react";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "react-query";
 import { v4 as uuidv4 } from "uuid";
 import CartDetailsLine from "./cart-details-line";
@@ -19,12 +19,14 @@ import { usePathname } from "next/navigation";
 import { SheetClose } from "@/components/ui/sheet";
 import { createCheckout } from "@/actions/checkout";
 import { loadStripe } from "@stripe/stripe-js";
+import AlertDialogLogin from "./alert-dialog-login";
 
 export interface DataProps {
   user: DataUser;
 }
 
 const CartContent = () => {
+  const [modalOpen, setModalOpen] = useState<Boolean>(false);
   const { data, status } = useSession();
   const dataUser = data as DataProps;
   const productsZustand = cartProducts((state) => state.products);
@@ -72,20 +74,23 @@ const CartContent = () => {
   );
 
   const handleFinishPurchase = async () => {
-    if (status !== "authenticated") {
-      return alert("Você precisa realizar o login para finalizar a compra.");
+    if (status === "loading") {
+      return;
     }
-    try {
-      const checkout = await createCheckout(productsZustand);
-
-      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
-      stripe?.redirectToCheckout({
-        sessionId: checkout.id,
-      });
-    } catch (error) {
-      alert(
-        "Ocorreu um erro ao tentar realizar a compra! \nRecarregue a página e tente novamente em alguns instantes.",
-      );
+    if (status === "unauthenticated") {
+      return setModalOpen(true);
+    } else if (status === "authenticated") {
+      try {
+        const checkout = await createCheckout(cartProductsData);
+        const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
+        stripe?.redirectToCheckout({
+          sessionId: checkout.id,
+        });
+      } catch (error) {
+        alert(
+          "Ocorreu um erro ao tentar realizar a compra! \nRecarregue a página e tente novamente em alguns instantes.",
+        );
+      }
     }
   };
 
@@ -168,6 +173,7 @@ const CartContent = () => {
               </SheetClose>
             </div>
           )}
+          {modalOpen && <AlertDialogLogin setModalOpen={setModalOpen} />}
         </div>
       )}
     </div>

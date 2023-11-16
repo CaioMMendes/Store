@@ -22,8 +22,6 @@ import { NumberOfProducts } from "@/helpers/number-of-products";
 const CartSheet = () => {
   const productsZustand = cartProducts((state) => state.products);
   const setProducts = cartProducts((state) => state.setProducts);
-  const [productsState, setProductsState] =
-    useState<OptionalIdUserCart[]>(productsZustand);
 
   const { data, status } = useSession();
   const dataUser = data as DataProps;

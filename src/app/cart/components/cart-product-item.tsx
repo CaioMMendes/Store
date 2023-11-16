@@ -97,7 +97,10 @@ const CartProductItem = ({
             if (productStorage.productId === product.id) {
               return {
                 ...productStorage,
-                quantity: productStorage.quantity - 1,
+                quantity:
+                  productStorage.quantity > 1
+                    ? productStorage.quantity - 1
+                    : productStorage.quantity,
               };
             }
             return productStorage;
@@ -239,7 +242,7 @@ const CartProductItem = ({
         </div>
         <Button
           variant={"outline"}
-          className="px-2"
+          className="z-10 px-2"
           onClick={() =>
             handleDeleteCartItem({
               cartProductId,
