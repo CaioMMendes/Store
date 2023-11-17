@@ -40,15 +40,33 @@ model Product {
   @@index([slug])
 }
 
-model UserProduct {
-  id           String   @id @default(uuid())
-  productId    String
-  product      Product  @relation(fields: [productId], references: [id])
+model UserOrder {
+  id           String        @id @default(uuid())
+  orderNumber  Int           @default(autoincrement())
   userId       String
-  user         User     @relation(fields: [userId], references: [id])
-  totalPaid    Decimal  @db.Decimal(8, 2)
-  quantity     Int      @default(1)
-  purchaseDate DateTime @default(now())
+  user         User          @relation(fields: [userId], references: [id])
+  userProducts UserProduct[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now()) @updatedAt
+  status       OrderStatus   @default(WAITING_FOR_PAYMENT)
+}
+
+enum OrderStatus {
+  WAITING_FOR_PAYMENT
+  PAYMENT_CONFIRMED
+}
+
+model UserProduct {
+  id           String    @id @default(uuid())
+  productId    String
+  product      Product   @relation(fields: [productId], references: [id])
+  userId       String
+  user         User      @relation(fields: [userId], references: [id])
+  totalPaid    Decimal   @db.Decimal(8, 2)
+  orderId      String
+  order        UserOrder @relation(fields: [orderId], references: [id])
+  quantity     Int       @default(1)
+  purchaseDate DateTime  @default(now())
 }
 
 model UserCart {
@@ -100,6 +118,7 @@ model User {
   sessions      Session[]
   userProduct   UserProduct[]
   userCart      UserCart[]
+  UserOrder     UserOrder[]
 }
 
 model VerificationToken {
