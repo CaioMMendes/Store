@@ -87,6 +87,7 @@ const CartContent = () => {
           sessionId: checkout.id,
         });
       } catch (error) {
+        console.log(error);
         alert(
           "Ocorreu um erro ao tentar realizar a compra! \nRecarregue a página e tente novamente em alguns instantes.",
         );
