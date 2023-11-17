@@ -13,6 +13,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import ToastFunction from "@/components/toast-function";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 export interface DataUser {
   id?: string | undefined;
@@ -36,6 +38,7 @@ export interface StorageProductProps {
 
 const ProductDetails = ({ product }: { product: ProductWithTotalPrice }) => {
   const { data, status } = useSession();
+
   const dataUser = data as { user: DataUser };
   const [quantity, setQuantity] = useState(1);
   const { toast } = useToast();

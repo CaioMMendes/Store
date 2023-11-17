@@ -20,6 +20,7 @@ import { SheetClose } from "@/components/ui/sheet";
 import { createCheckout } from "@/actions/checkout";
 import { loadStripe } from "@stripe/stripe-js";
 import AlertDialogLogin from "./alert-dialog-login";
+import { createOrder } from "@/actions/order";
 
 export interface DataProps {
   user: DataUser;
@@ -81,7 +82,16 @@ const CartContent = () => {
       return setModalOpen(true);
     } else if (status === "authenticated") {
       try {
-        const checkout = await createCheckout(cartProductsData);
+        if (!dataUser.user.id) {
+          return alert("É necessário realizar o login");
+        }
+        const order = await createOrder(productsZustand, dataUser.user.id);
+        if (order === "error") {
+          return alert(
+            "Ocorreu um erro ao tentar realizar a compra! \nRecarregue a página e tente novamente em alguns instantes.",
+          );
+        }
+        const checkout = await createCheckout(productsZustand, order.id);
         const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
         stripe?.redirectToCheckout({
           sessionId: checkout.id,

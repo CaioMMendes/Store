@@ -4,7 +4,10 @@ import { computeProductTotalPrice } from "@/helpers/productPrice";
 import { OptionalIdUserCart } from "@/providers/cart-provider";
 import Stripe from "stripe";
 
-export const createCheckout = async (products: OptionalIdUserCart[]) => {
+export const createCheckout = async (
+  products: OptionalIdUserCart[],
+  orderId: string,
+) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: "2023-10-16",
   });
@@ -25,10 +28,10 @@ export const createCheckout = async (products: OptionalIdUserCart[]) => {
     payment_method_types: ["card"],
     mode: "payment",
     success_url: `${process.env.HOST_URL}/user/requests/`,
-    cancel_url: `${process.env.HOST_URL}/cart`,
-    // metadata: {
-    //   products: JSON.stringify(productWithTotalPrice),
-    // },
+    cancel_url: `${process.env.HOST_URL}/user/requests/`,
+    metadata: {
+      orderId,
+    },
     line_items: productWithTotalPrice.map((product) => {
       // const totalPrice = (
       //   Number(product.product.basePrice) *
