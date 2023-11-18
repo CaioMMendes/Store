@@ -27,8 +27,8 @@ const SearchProduct = () => {
     router.push(`/product/search?product=${data.product}`);
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col gap-2 px-5 pb-3">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col">
+      <div className="flex w-full flex-col gap-2 px-5 pb-3">
         <div className="relative">
           <button
             type="submit"

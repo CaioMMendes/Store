@@ -1,9 +1,9 @@
 import Image, { ImageProps } from "next/image";
 
-const PhotoshopBanner = ({ src, alt }: ImageProps) => {
+const DealsBannerLarge = ({ src, alt }: ImageProps) => {
   return (
-    <div className="flex w-full md:px-5">
-      <div className="flex w-full rounded-lg bg-gradient-to-r from-[#2e3133] to-[#161718] md:h-36  ">
+    <div>
+      <div className="hidden  w-full md:flex  ">
         <Image
           src={src}
           alt={alt}
@@ -20,4 +20,4 @@ const PhotoshopBanner = ({ src, alt }: ImageProps) => {
   );
 };
 
-export default PhotoshopBanner;
+export default DealsBannerLarge;

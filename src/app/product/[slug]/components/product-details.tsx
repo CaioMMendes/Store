@@ -128,83 +128,87 @@ const ProductDetails = ({ product }: { product: ProductWithTotalPrice }) => {
     });
   };
   return (
-    <div className="flex flex-col gap-4 ">
-      <div className=" flex flex-col gap-2">
-        <div className="flex flex-col gap-1">
-          <p className="text-base text-primary">Disponível em estoque</p>
-          <p className="text-xl font-semibold">{product.name}</p>
-        </div>
-
-        <div className="flex flex-col gap-1">
-          <div className="flex gap-1">
-            <p className="flex gap-1 text-xl font-bold">
-              R$ {Number(product.totalPrice).toFixed(2)}
-            </p>
-            <PercentageBadge discountPercentage={product.discountPercentage} />
+    <div className="flex w-full flex-col gap-4 md:flex-row">
+      <div className="flex flex-col gap-4 md:w-2/6">
+        <div className=" flex flex-col gap-2 md:w-full">
+          <div className="flex flex-col gap-1">
+            <p className="text-base text-primary">Disponível em estoque</p>
+            <p className="text-xl font-semibold">{product.name}</p>
           </div>
-          <p
-            className={`${
-              product.discountPercentage === 0 && "hidden"
-            } textbase flex line-through opacity-75 `}
-          >
-            De: {Number(product.basePrice).toFixed(2)}
-          </p>
-        </div>
 
-        <div className="flex items-center gap-1">
-          <p>Quantidade:</p>
-          <div className="flex items-center gap-3">
-            <Button
-              variant={"outline"}
-              onClick={() => handleQuantity("diminuir")}
+          <div className="flex flex-col gap-1">
+            <div className="flex gap-1">
+              <p className="flex gap-1 text-xl font-bold">
+                R$ {Number(product.totalPrice).toFixed(2)}
+              </p>
+              <PercentageBadge
+                discountPercentage={product.discountPercentage}
+              />
+            </div>
+            <p
+              className={`${
+                product.discountPercentage === 0 && "hidden"
+              } textbase flex line-through opacity-75 `}
             >
-              <p>{"<"}</p>
-            </Button>
-            <p className="flex w-10 items-center justify-center text-lg">
-              {quantity}
+              De: {Number(product.basePrice).toFixed(2)}
             </p>
-            <Button
-              variant={"outline"}
-              onClick={() => handleQuantity("aumentar")}
-            >
-              <p>{">"}</p>
-            </Button>
           </div>
-        </div>
-      </div>
 
-      <Button
-        className=" font-semibold uppercase"
-        onClick={() => {
-          handleAddProduct({
-            userId: dataUser?.user.id,
-            product: product,
-            quantity,
-            status,
-          });
-        }}
-      >
-        Adicionar ao carrinho
-      </Button>
-      <div className="flex items-center justify-between rounded-lg bg-accent px-4 py-2">
-        <div className="flex items-center gap-2">
-          <Image
-            src="/truck-icon.svg"
-            alt={"truck icon"}
-            width={30}
-            height={30}
-            sizes="auto"
-          />
-          <div className="flex flex-col">
-            <p className="text-sm">
-              Entrega via <span className="font-semibold">StorePacket®</span>
-            </p>
-            <p className="text-sm text-primary">
-              Envio para <span className="font-semibold">todo Brasil</span>
-            </p>
+          <div className="flex items-center gap-1">
+            <p>Quantidade:</p>
+            <div className="flex items-center gap-3">
+              <Button
+                variant={"outline"}
+                onClick={() => handleQuantity("diminuir")}
+              >
+                <p>{"<"}</p>
+              </Button>
+              <p className="flex w-10 items-center justify-center text-lg">
+                {quantity}
+              </p>
+              <Button
+                variant={"outline"}
+                onClick={() => handleQuantity("aumentar")}
+              >
+                <p>{">"}</p>
+              </Button>
+            </div>
           </div>
         </div>
-        <div className="text-sm font-semibold">Frete Grátis</div>
+
+        <Button
+          className=" font-semibold uppercase"
+          onClick={() => {
+            handleAddProduct({
+              userId: dataUser?.user.id,
+              product: product,
+              quantity,
+              status,
+            });
+          }}
+        >
+          Adicionar ao carrinho
+        </Button>
+        <div className="flex items-center justify-between rounded-lg bg-accent px-4 py-2">
+          <div className="flex items-center gap-2">
+            <Image
+              src="/truck-icon.svg"
+              alt={"truck icon"}
+              width={30}
+              height={30}
+              sizes="auto"
+            />
+            <div className="flex flex-col">
+              <p className="text-sm">
+                Entrega via <span className="font-semibold">StorePacket®</span>
+              </p>
+              <p className="text-sm text-primary">
+                Envio para <span className="font-semibold">todo Brasil</span>
+              </p>
+            </div>
+          </div>
+          <div className="text-sm font-semibold">Frete Grátis</div>
+        </div>
       </div>
       <ProductDescription description={product.description} />
     </div>

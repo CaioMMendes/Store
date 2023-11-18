@@ -5,7 +5,7 @@ const Categories = async () => {
   const categories = await prismaClient.category.findMany({});
 
   return (
-    <div className="grid grid-cols-2  gap-x-4 gap-y-3 ">
+    <div className="grid grid-cols-2  gap-x-4 gap-y-3 md:grid-cols-6">
       {categories.map((category) => {
         return <CategoryItem key={category.id} category={category} />;
       })}

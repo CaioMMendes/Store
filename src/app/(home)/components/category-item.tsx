@@ -31,10 +31,10 @@ const CategoryItem = ({ category }: CategoryItemProps) => {
         variant={"outline"}
         className="flex w-full justify-center gap-2 p-2"
       >
-        <span className="flex w-1/3 justify-center">
+        <span className="flex w-1/3 justify-center md:w-fit ">
           {categoryIcons[category.slug as keyof typeof categoryIcons]}
         </span>
-        <p className="flex w-fit flex-1 text-xs font-semibold">
+        <p className="flex w-fit flex-1 text-xs font-semibold  md:flex-none md:justify-center">
           {category.name}
         </p>
       </Button>

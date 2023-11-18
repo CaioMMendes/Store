@@ -4,11 +4,18 @@ import DealsList from "../../components/lists/deals-list";
 import Categories from "./components/categories";
 import PhotoshopBanner from "./components/photoshop-banners";
 import PromoBanner from "./components/promo-banner";
+import DealsBannerLarge from "./components/deals-banner-large";
 
 export default function Home() {
   return (
     <main className=" mt-3 flex flex-col ">
-      <SearchProduct />
+      <span className="md:hidden">
+        <SearchProduct />
+      </span>
+      <DealsBannerLarge
+        src="/banners/banner-ofertas.png"
+        alt="Até 55% de desconto este mês"
+      />
       <PromoBanner
         src="/banners/banner-55off.png"
         alt="Até 55% de desconto este mês"
@@ -18,8 +25,8 @@ export default function Home() {
         <DealsList />
       </div>
       <div className="flex flex-col gap-5  pb-8">
-        <PromoBanner
-          src="/banners/banner-mouses.png"
+        <PhotoshopBanner
+          src="/banners/banner-mouse.png"
           alt="Até 55% de desconto em mouses"
         />
 
@@ -31,8 +38,8 @@ export default function Home() {
 
         <List product={"keyboards"} />
 
-        <PromoBanner
-          src={"/banners/banner-fones.png"}
+        <PhotoshopBanner
+          src={"/banners/banner-fone.png"}
           alt={"Até 20% de desconto em fones"}
         />
         <List product={"headphones"} />

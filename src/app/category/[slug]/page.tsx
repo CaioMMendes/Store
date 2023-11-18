@@ -56,7 +56,7 @@ const CategoryProductsPage = ({ params }: { params: { slug: string } }) => {
           <DropdownOrderBy />
         </div>
       </div>
-      <div className="grid !w-full !max-w-6xl grid-cols-2 gap-x-2 gap-y-3">
+      <div className="grid !w-full !max-w-6xl grid-cols-2 gap-x-2 gap-y-3 md:grid-cols-3 md:gap-x-4 md:gap-y-5 lg:grid-cols-4">
         {productsCategoryData.map((product: Product) => {
           return (
             <ProductItem

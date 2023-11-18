@@ -31,7 +31,9 @@ const SearchProductPage = () => {
   if (!productsData || productsData.length === 0) {
     return (
       <div className="mt-3 flex h-full flex-col gap-3">
-        <SearchProduct />
+        <span className="md:hidden">
+          <SearchProduct />
+        </span>
         <div className="flex h-full w-full  justify-center p-5 text-justify text-xl">
           <p>
             {" "}
@@ -44,7 +46,9 @@ const SearchProductPage = () => {
   }
   return (
     <div className="flex w-full flex-col gap-5 p-5">
-      <SearchProduct />
+      <span className="md:hidden">
+        <SearchProduct />
+      </span>
       <div className="grid !w-full !max-w-6xl grid-cols-2 gap-x-2 gap-y-3">
         {productsData.map((product: Product) => {
           return (

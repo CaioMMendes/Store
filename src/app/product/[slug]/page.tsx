@@ -45,10 +45,13 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
   }
 
   return (
-    <div className="flex flex-col gap-4 pb-5">
-      <ProductImages imageUrls={data.imageURLs} name={data.name} />
-      <div className="flex flex-col gap-4 p-5">
-        <ProductDetails product={computeProductTotalPrice(data)} />
+    <div className="flex w-full flex-col gap-4 pb-5">
+      <div className="w-100vw flex flex-col gap-4  ">
+        <ProductImages imageUrls={data.imageURLs} name={data.name} />
+
+        <div className="flex flex-col gap-4 p-5 ">
+          <ProductDetails product={computeProductTotalPrice(data)} />
+        </div>
       </div>
       <div className="px-5">
         <ProductList

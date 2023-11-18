@@ -8,7 +8,7 @@ const CatalogPage = async () => {
   return (
     <div className="flex h-full flex-col gap-5 p-4">
       <DropDownCatalog catalog={categories} category={"catalog"} />
-      <div className="grid flex-1 grid-cols-2 gap-x-3 gap-y-3">
+      <div className="grid flex-1 grid-cols-2 gap-x-3 gap-y-3 md:grid-cols-3 md:gap-x-4 md:gap-y-5">
         {categories.map((category) => {
           return <CategoryItemCatalog category={category} key={category.id} />;
         })}
