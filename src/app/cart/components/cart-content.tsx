@@ -21,6 +21,7 @@ import { v4 as uuidv4 } from "uuid";
 import AlertDialogLogin from "./alert-dialog-login";
 import CartDetailsLine from "./cart-details-line";
 import CartProductItem from "./cart-product-item";
+import CreditCardDialog from "./credit-card-dialog";
 
 export interface DataProps {
   user: DataUser;
@@ -28,6 +29,7 @@ export interface DataProps {
 
 const CartContent = () => {
   const [modalOpen, setModalOpen] = useState<Boolean>(false);
+  const [modalCreditCard, setModalCreditCard] = useState<Boolean>(false);
   const { data, status } = useSession();
   const dataUser = data as DataProps;
   const productsZustand = cartProducts((state) => state.products);
@@ -169,7 +171,7 @@ const CartContent = () => {
           </div>
           <Button
             className="flex w-full text-base font-semibold"
-            onClick={handleFinishPurchase}
+            onClick={() => setModalCreditCard(true)}
           >
             Finalizar compra
           </Button>
@@ -185,6 +187,13 @@ const CartContent = () => {
             </div>
           )}
           {modalOpen && <AlertDialogLogin setModalOpen={setModalOpen} />}
+          {modalCreditCard && (
+            <CreditCardDialog
+              setModalCreditCard={setModalCreditCard}
+              handleFinishPurchase={handleFinishPurchase}
+              modalCreditCard={modalCreditCard}
+            />
+          )}
         </div>
       )}
     </div>
