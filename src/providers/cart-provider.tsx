@@ -58,7 +58,6 @@ const cartProducts = create<ICartProducts>()((set, get) => ({
     // }
   },
   addProduct: (productReceived) => {
-    console.log(productReceived.id);
     const products = get().products;
     const findProduct = products.find(
       (p) => p.productId === productReceived.productId,

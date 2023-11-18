@@ -1,11 +1,11 @@
 import {
   HomeIcon,
-  PercentIcon,
   ListOrderedIcon,
+  PercentIcon,
   ShoppingBasketIcon,
 } from "lucide-react";
-import { Button } from "../ui/button";
 import Link from "next/link";
+import { Button } from "../ui/button";
 import { SheetClose } from "../ui/sheet";
 
 const HeaderMenuItem = ({ name, href }: { name: string; href: string }) => {

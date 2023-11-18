@@ -2,19 +2,16 @@
 import PercentageBadge from "@/components/percentage-badge";
 import { Button } from "@/components/ui/button";
 
+import ToastFunction from "@/components/toast-function";
+import { useToast } from "@/components/ui/use-toast";
 import { ProductWithTotalPrice } from "@/helpers/productPrice";
 import cartProducts from "@/providers/cart-provider";
 import AddProductToCart from "@/requests/add-product-to-cart";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ProductDescription from "./product-description";
-import { useToast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/toast";
-import { useRouter } from "next/navigation";
-import ToastFunction from "@/components/toast-function";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 
 export interface DataUser {
   id?: string | undefined;
@@ -46,7 +43,6 @@ const ProductDetails = ({ product }: { product: ProductWithTotalPrice }) => {
 
   const addProduct = cartProducts((state) => state.addProduct);
   const productsZustand = cartProducts((state) => state.products);
-  console.log(productsZustand);
   const handleQuantity = (status: string) => {
     if (status === "aumentar") {
       return setQuantity((prev) => prev + 1);
@@ -106,7 +102,6 @@ const ProductDetails = ({ product }: { product: ProductWithTotalPrice }) => {
           "cart-products",
           JSON.stringify([{ product, quantity, productId: product.id }]),
         );
-        console.log(localStorage.getItem("cart-products"));
       }
 
       addProduct({

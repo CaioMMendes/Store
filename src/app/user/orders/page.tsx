@@ -1,17 +1,15 @@
 "use client";
 
 import { DataProps } from "@/app/cart/components/cart-content";
+import { Button } from "@/components/ui/button";
+import orderProvider from "@/providers/order-provider";
 import getAllUserOrders from "@/requests/get-all-user-orders";
 import { Product, UserOrder, UserProduct } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useQuery } from "react-query";
 import LoginUserRequests from "./components/login";
 import OrderItem from "./components/order-item";
-import { useState } from "react";
-import orderProvider from "@/providers/order-provider";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 export interface UserOrderWithUserProductProps extends UserOrder {
   userProducts: UserProductWithProduct[];

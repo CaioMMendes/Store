@@ -1,10 +1,10 @@
 "use client";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Input } from "./ui/input";
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
 const SearchProduct = () => {
   const searchParams = useSearchParams();

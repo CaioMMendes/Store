@@ -8,7 +8,7 @@ export async function PATCH(request: Request) {
       status: 403,
     });
   }
-  const product = await prismaClient.userCart.update({
+  await prismaClient.userCart.update({
     where: {
       id: cartProductId,
     },

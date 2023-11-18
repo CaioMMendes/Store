@@ -1,9 +1,5 @@
 "use server";
 
-import {
-  ProductWithTotalPrice,
-  computeProductTotalPrice,
-} from "@/helpers/productPrice";
 import { OptionalIdUserCart } from "@/providers/cart-provider";
 import { Product, UserCart } from "@prisma/client";
 import Stripe from "stripe";
@@ -50,10 +46,6 @@ export const createCheckout = async (
       orderId,
     },
     line_items: productWithTotalPrice.map((product) => {
-      // const totalPrice = (
-      //   Number(product.product.basePrice) *
-      //   (1 - product.product.discountPercentage / 100)
-      // ).toFixed(2);
       return {
         price_data: {
           currency: "brl",
@@ -68,6 +60,5 @@ export const createCheckout = async (
       };
     }),
   });
-  console.log("saiu do checkout");
   return checkout;
 };

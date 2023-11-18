@@ -1,6 +1,4 @@
 import { ProductWithTotalPrice } from "@/helpers/productPrice";
-import { Product } from "@prisma/client";
-import { ArrowDown, ArrowDownIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import PercentageBadge from "./percentage-badge";

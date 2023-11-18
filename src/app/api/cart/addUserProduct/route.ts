@@ -18,7 +18,6 @@ export async function POST(request: Request) {
     },
   });
   if (product) {
-    console.log(product.quantity, quantity);
     await prismaClient.userCart.updateMany({
       where: {
         userId,

@@ -7,20 +7,6 @@ export const createOrder = async (
   cartProducts: OptionalIdUserCart[],
   userId: string,
 ) => {
-  // const userProducts:UserProduct=cartProducts.map((product)=>{
-  //     return {
-  //       productId: product.productId,
-  //       userId: userId.id,
-  //       totalPaid: Number(
-  //         (
-  //           Number(product.product.basePrice) *
-  //           (1 - product.product.discountPercentage / 100)
-  //         ).toFixed(2),
-  //       ),
-  //       quantity:product.quantity,
-
-  //     };
-  // })
   try {
     const order = await prismaClient.userOrder.create({
       data: {

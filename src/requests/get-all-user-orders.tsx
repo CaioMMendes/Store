@@ -1,6 +1,4 @@
-import { OrderByProps } from "@/providers/order-by-provider";
-
-const getAllUserOrders = async ( userId :  string | undefined ) => {
+const getAllUserOrders = async (userId: string | undefined) => {
   if (!userId) {
     return;
   }

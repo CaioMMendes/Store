@@ -14,7 +14,6 @@ const AddProductToCart = async ({
   if (!userId) {
     return console.log("Missing userId");
   }
-  console.log(userId, productId, quantity);
   const response = await fetch(`/api/cart/addUserProduct`, {
     method: "POST",
     body: Buffer.from(

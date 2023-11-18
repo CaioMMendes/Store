@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import CartSheet from "../../app/cart/components/cart-sheet";
-import { HandleTheme } from "../handleTheme";
 import { Card } from "../ui/card";
 import HeaderMenu from "./headerMenu";
 

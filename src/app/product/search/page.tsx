@@ -1,5 +1,4 @@
 "use client";
-import LoadingCategoryProducts from "@/app/category/[slug]/components/loading-category-products";
 import ProductItem from "@/components/productItem";
 import SearchProduct from "@/components/search-product";
 import { computeProductTotalPrice } from "@/helpers/productPrice";

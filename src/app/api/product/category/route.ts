@@ -4,8 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   const { searchParams } = new URL(request.url);
   const { type, lowestBiggest } = await request.json();
-  console.log(type);
-  console.log(lowestBiggest);
+
   const slug = searchParams.get("slug");
   if (!slug) {
     return;

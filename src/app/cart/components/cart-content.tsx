@@ -1,5 +1,9 @@
 "use client";
+import { createCheckout } from "@/actions/checkout";
+import { createOrder } from "@/actions/order";
 import { DataUser } from "@/app/product/[slug]/components/product-details";
+import { Button } from "@/components/ui/button";
+import { SheetClose } from "@/components/ui/sheet";
 import { computeProductTotalPrice } from "@/helpers/productPrice";
 import { productsDiscountsCalc } from "@/helpers/products-discounts-calc";
 import { productsSubtotalCalc } from "@/helpers/products-subtotal-calc";
@@ -7,20 +11,16 @@ import { productsTotalCalc } from "@/helpers/products-total-calc";
 import cartProducts from "@/providers/cart-provider";
 import { queryClient } from "@/providers/query-client";
 import GetProductsFromCart from "@/requests/get-products-from-cart";
+import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "react-query";
 import { v4 as uuidv4 } from "uuid";
+import AlertDialogLogin from "./alert-dialog-login";
 import CartDetailsLine from "./cart-details-line";
 import CartProductItem from "./cart-product-item";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { usePathname } from "next/navigation";
-import { SheetClose } from "@/components/ui/sheet";
-import { createCheckout } from "@/actions/checkout";
-import { loadStripe } from "@stripe/stripe-js";
-import AlertDialogLogin from "./alert-dialog-login";
-import { createOrder } from "@/actions/order";
 
 export interface DataProps {
   user: DataUser;

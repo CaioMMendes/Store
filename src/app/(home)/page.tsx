@@ -1,11 +1,9 @@
-import { HandleTheme } from "@/components/handleTheme";
-import Image from "next/image";
-import Categories from "./components/categories";
-import DealsList from "../../components/lists/deals-list";
 import List from "@/components/lists/list";
-import PromoBanner from "./components/promo-banner";
 import SearchProduct from "@/components/search-product";
+import DealsList from "../../components/lists/deals-list";
+import Categories from "./components/categories";
 import PhotoshopBanner from "./components/photoshop-banners";
+import PromoBanner from "./components/promo-banner";
 
 export default function Home() {
   return (

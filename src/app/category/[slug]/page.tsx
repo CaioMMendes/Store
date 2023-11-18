@@ -2,13 +2,13 @@
 import DropDownCatalog from "@/components/dropdown-catalog";
 import ProductItem from "@/components/productItem";
 import { computeProductTotalPrice } from "@/helpers/productPrice";
+import orderBy from "@/providers/order-by-provider";
 import GetAllCategoriesRequest from "@/requests/get-all-categories";
 import GetCategoryProductsRequest from "@/requests/get-category-products";
 import { Product } from "@prisma/client";
 import { useQuery } from "react-query";
 import LoadingCategoryProducts from "./components/loading-category-products";
 import DropdownOrderBy from "./components/select-orderby";
-import orderBy from "@/providers/order-by-provider";
 
 const CategoryProductsPage = ({ params }: { params: { slug: string } }) => {
   const orderByZustand = orderBy((state) => state.orderBy);

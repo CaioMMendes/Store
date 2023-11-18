@@ -1,10 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { UserProductWithProduct } from "../page";
-import Image from "next/image";
-import { Separator } from "@/components/ui/separator";
 
 const ProductOrderItem = ({ product }: { product: UserProductWithProduct }) => {
-  console.log(product.totalPaid);
   return (
     <Link href={`/product/${product.product.slug}`} scroll={true}>
       <div className=" flex w-full  cursor-pointer gap-4">

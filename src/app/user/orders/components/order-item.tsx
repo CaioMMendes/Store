@@ -1,20 +1,19 @@
-import { Card } from "@/components/ui/card";
-import { UserOrderWithUserProductProps, UserProductWithProduct } from "../page";
+import { createCheckout } from "@/actions/checkout";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { TotalProductsOrderCalc } from "../helpers/total-products-order-calc";
-import ProductOrderItem from "./product-order-item";
-import Image from "next/image";
-import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { loadStripe } from "@stripe/stripe-js";
-import { createCheckout } from "@/actions/checkout";
-import { computeProductTotalPrice } from "@/helpers/productPrice";
+import Image from "next/image";
+import { TotalProductsOrderCalc } from "../helpers/total-products-order-calc";
+import { UserOrderWithUserProductProps, UserProductWithProduct } from "../page";
 import AlertDialogCancelOrder from "./alert-dialog-cancel-order";
+import ProductOrderItem from "./product-order-item";
 
 interface OrderProductProps {
   product: {
@@ -87,7 +86,11 @@ const OrderItem = ({ order }: { order: UserOrderWithUserProductProps }) => {
                 />
               </div>
               <div className="flex w-[75%] flex-col items-start justify-center gap-1 ">
-                <p>Pedido com {totalProductsOrder} produto(s)</p>
+                {totalProductsOrder === 1 ? (
+                  <p>Pedido com {totalProductsOrder} produto</p>
+                ) : (
+                  <p>Pedido com {totalProductsOrder} produto(s)</p>
+                )}
                 <div className="flex w-full flex-wrap gap-1 ">
                   <p>Efetuado em {updatedAtDate}</p>
                   <p>as {updatedAtHour}</p>
@@ -114,10 +117,7 @@ const OrderItem = ({ order }: { order: UserOrderWithUserProductProps }) => {
                       : "Aguardado pagamento"}
                   </p>
                 </div>
-                {/* <div className="flex flex-col">
-                  <p className="font-semibold">Data</p>
-                  <p className="opacity-80">{updatedAtDate}</p>
-                </div> */}
+
                 {order.status === "PAYMENT_CONFIRMED" && (
                   <div className="flex flex-col gap-1">
                     <p className="text-lg font-semibold">Pagamento</p>
@@ -157,23 +157,6 @@ const OrderItem = ({ order }: { order: UserOrderWithUserProductProps }) => {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-      {/* <div>{order.orderNumber}</div>
-      <div>{order.status}</div>
-      <div>{Number(order?.userProducts[0]?.totalPaid)}</div>
-      <div>{order?.userProducts[0]?.quantity}</div> */}
-      {/* <div>
-        {order?.userProducts?.map((product: UserProductWithProduct) => {
-          return (
-            <div key={product.id}>
-              <div>
-                {product.quantity}
-                {product.product.name}
-              </div>
-            </div>
-          );
-        })}
-      </div> */}
-      {/* <div>{order.}</div> */}
     </Card>
   );
 };

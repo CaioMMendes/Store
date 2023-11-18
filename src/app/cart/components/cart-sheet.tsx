@@ -1,23 +1,20 @@
 "use client";
+import { NumberOfProducts } from "@/helpers/number-of-products";
+import cartProducts from "@/providers/cart-provider";
+import { queryClient } from "@/providers/query-client";
+import GetProductsFromCart from "@/requests/get-products-from-cart";
 import { ShoppingCartIcon } from "lucide-react";
-import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { useQuery } from "react-query";
 import { Button } from "../../../components/ui/button";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTrigger,
 } from "../../../components/ui/sheet";
 import CartContent, { DataProps } from "./cart-content";
-import cartProducts from "@/providers/cart-provider";
-import { useEffect, useState } from "react";
-import GetProductsFromCart from "@/requests/get-products-from-cart";
-import { useSession } from "next-auth/react";
-import { queryClient } from "@/providers/query-client";
-import { useQuery } from "react-query";
-import { OptionalIdUserCart } from "@/providers/cart-provider";
-import { NumberOfProducts } from "@/helpers/number-of-products";
 
 const CartSheet = () => {
   const productsZustand = cartProducts((state) => state.products);

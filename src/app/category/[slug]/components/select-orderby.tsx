@@ -1,25 +1,20 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import orderBy from "@/providers/order-by-provider";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 
 const SelectOrderBy = () => {
   const orderByZustand = orderBy((state) => state.orderBy);
   const setOrderBy = orderBy((state) => state.setOrderBy);
   const pathname = usePathname();
   const handleValueChange = (value: string) => {
-    console.log(value);
-
     if (value === "deals") {
       setOrderBy({
         type: "discountPercentage",

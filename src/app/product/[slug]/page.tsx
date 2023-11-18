@@ -1,13 +1,12 @@
 "use client";
+import ProductList from "@/components/lists/product-list";
+import { computeProductTotalPrice } from "@/helpers/productPrice";
 import ProductItemRequest from "@/requests/product-item";
+import { useEffect } from "react";
 import { useQuery } from "react-query";
-import ProductImages from "./components/product-images";
 import LoadingProductImages from "./components/loading-product-images";
 import ProductDetails from "./components/product-details";
-import { computeProductTotalPrice } from "@/helpers/productPrice";
-import ProductDescription from "./components/product-description";
-import ProductList from "@/components/lists/product-list";
-import { useEffect } from "react";
+import ProductImages from "./components/product-images";
 
 interface ProductDetailPageProps {
   params: {

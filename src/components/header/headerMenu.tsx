@@ -1,12 +1,12 @@
 "use client";
 import { LogInIcon, LogOutIcon, MenuIcon } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import HeaderMenuItem from "./headerMenuItem";
-import { usePathname } from "next/navigation";
 
 const HeaderMenu = () => {
   const pathname = usePathname();

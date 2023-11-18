@@ -56,7 +56,6 @@ const CartProductItem = ({
     if (render === false) {
       return;
     }
-    console.log(cartProductId);
     if (cartProductId !== undefined) {
       setRender(false);
       cartProductId && UpdateCartProductQuantity({ cartProductId, quantity });

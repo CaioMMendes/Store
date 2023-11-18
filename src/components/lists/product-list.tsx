@@ -1,10 +1,9 @@
 "use client";
 import ProductItem from "@/components/productItem";
-import { Product } from "@prisma/client";
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
 import { computeProductTotalPrice } from "@/helpers/productPrice";
-import { useEffect, useState } from "react";
+import { Product } from "@prisma/client";
+import "keen-slider/keen-slider.min.css";
+import { useKeenSlider } from "keen-slider/react";
 import Link from "next/link";
 
 interface ProductListProps {
@@ -14,12 +13,6 @@ interface ProductListProps {
 }
 
 const ProductList = ({ products, title, slug }: ProductListProps) => {
-  // const [widthScreen, setWidthScreen] = useState<Number>();
-  // useEffect(() => {
-  //   setWidthScreen(window.innerWidth);
-  //   console.log(window.innerWidth);
-  // }, []);
-
   const [ref] = useKeenSlider<HTMLDivElement>({
     loop: false,
     mode: "free",

@@ -10,10 +10,8 @@ export async function GET(request: Request) {
     product = decodeURIComponent(searchParams.get("product")!);
     product = product.trim();
     productModified = product;
-    // productModified = product.replace(/ /g, " ");
   }
   const products = await prismaClient.product.findMany({
-    // where: generateSearchQuery(productModified ?? ""),
     where: {
       OR: [
         {

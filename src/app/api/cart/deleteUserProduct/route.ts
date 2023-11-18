@@ -8,7 +8,7 @@ export async function DELETE(request: Request) {
       status: 403,
     });
   }
-  const product = await prismaClient.userCart.delete({
+  await prismaClient.userCart.delete({
     where: {
       id: cartProductId,
     },

@@ -16,10 +16,7 @@ const RedirectSigninPage = () => {
   const router = useRouter();
   const pathname = searchParams.get("pathname");
   const addProduct = cartProducts((state) => state.addProduct);
-  const zustandProducts = cartProducts((state) => state.products);
 
-  console.log(dataUser);
-  console.log(status);
   if (status === "loading") {
     return <div className="p-5">Loading...</div>;
   }
@@ -44,7 +41,6 @@ const RedirectSigninPage = () => {
         product: product.product,
       });
     });
-    // console.log(zustandProducts);
     localStorage.setItem("cart-products", "[]");
     return pathname ? router.push(pathname) : router.push("/");
   }

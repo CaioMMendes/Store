@@ -1,8 +1,4 @@
-import {
-  KeenSliderHooks,
-  KeenSliderInstance,
-  useKeenSlider,
-} from "keen-slider/react";
+import { KeenSliderHooks, KeenSliderInstance } from "keen-slider/react";
 import Image from "next/image";
 import { MutableRefObject } from "react";
 

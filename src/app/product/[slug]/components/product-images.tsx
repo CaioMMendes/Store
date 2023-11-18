@@ -1,9 +1,9 @@
 "use client";
+import "keen-slider/keen-slider.min.css";
+import { useKeenSlider } from "keen-slider/react";
 import Image from "next/image";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
 import ProductImageSlider from "./product-image-slider";
 
 interface ProductImageProps {

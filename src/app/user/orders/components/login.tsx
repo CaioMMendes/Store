@@ -1,6 +1,6 @@
-import { usePathname } from "next/navigation";
-import { signIn, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { signIn } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 const LoginUserOrders = () => {
   const pathname = usePathname();
