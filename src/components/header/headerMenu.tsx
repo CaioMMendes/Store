@@ -68,7 +68,7 @@ const HeaderMenu = () => {
               <HeaderMenuItem name={"Início"} href={""} />
 
               {status === "authenticated" && (
-                <HeaderMenuItem name={"Meus pedidos"} href={"user/requests"} />
+                <HeaderMenuItem name={"Meus pedidos"} href={"user/orders/"} />
               )}
               <HeaderMenuItem name={"Ofertas"} href={"category/deals"} />
               <HeaderMenuItem name={"Catálogo"} href={"catalog"} />

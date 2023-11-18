@@ -2,7 +2,7 @@ import { usePathname } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 
-const LoginUserRequests = () => {
+const LoginUserOrders = () => {
   const pathname = usePathname();
 
   const handleLoginClick = () => {
@@ -25,4 +25,4 @@ const LoginUserRequests = () => {
   );
 };
 
-export default LoginUserRequests;
+export default LoginUserOrders;

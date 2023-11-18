@@ -1,11 +1,28 @@
 "use server";
 
-import { computeProductTotalPrice } from "@/helpers/productPrice";
+import {
+  ProductWithTotalPrice,
+  computeProductTotalPrice,
+} from "@/helpers/productPrice";
 import { OptionalIdUserCart } from "@/providers/cart-provider";
+import { Product, UserCart } from "@prisma/client";
 import Stripe from "stripe";
 
+interface createCheckoutProductProps extends Omit<UserCart, "id" | "userId"> {
+  id?: string | undefined;
+  userId?: string;
+  productId: string;
+  quantity: number;
+  product: ProductWithBasePriceNumber;
+}
+
+interface ProductWithBasePriceNumber extends Omit<Product, "basePrice"> {
+  basePrice: number;
+  totalPrice: number;
+}
+
 export const createCheckout = async (
-  products: OptionalIdUserCart[],
+  products: OptionalIdUserCart[] | createCheckoutProductProps[],
   orderId: string,
 ) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -27,8 +44,8 @@ export const createCheckout = async (
   const checkout = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     mode: "payment",
-    success_url: `${process.env.HOST_URL}/user/requests/`,
-    cancel_url: `${process.env.HOST_URL}/user/requests/`,
+    success_url: `${process.env.HOST_URL}/user/orders/`,
+    cancel_url: `${process.env.HOST_URL}/user/orders/`,
     metadata: {
       orderId,
     },

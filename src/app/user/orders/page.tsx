@@ -1,22 +1,23 @@
 "use client";
 
 import { DataProps } from "@/app/cart/components/cart-content";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import LoginUserRequests from "./components/login";
-import { useQuery } from "react-query";
 import getAllUserOrders from "@/requests/get-all-user-orders";
 import { Product, UserOrder, UserProduct } from "@prisma/client";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useQuery } from "react-query";
+import LoginUserRequests from "./components/login";
+import OrderItem from "./components/order-item";
 
-interface UserOrderWithUserProductProps extends UserOrder {
+export interface UserOrderWithUserProductProps extends UserOrder {
   userProducts: UserProductWithProduct[];
 }
 
-interface UserProductWithProduct extends UserProduct {
+export interface UserProductWithProduct extends UserProduct {
   product: Product;
 }
 
-const UserRequestsPage = () => {
+const UserOrdersPage = () => {
   const { data, status } = useSession();
   const dataUser = data as DataProps;
   const router = useRouter();
@@ -50,29 +51,7 @@ const UserRequestsPage = () => {
         <div className="flex flex-col gap-5">
           {userOrdersData?.map((order: UserOrderWithUserProductProps) => {
             console.log(order.userProducts);
-            return (
-              <div key={order.id} className="flex flex-col">
-                <div>{order.orderNumber}</div>
-                <div>{order.status}</div>
-                <div>{Number(order?.userProducts[0]?.totalPaid)}</div>
-                <div>{order?.userProducts[0]?.quantity}</div>
-                <div>
-                  {order?.userProducts?.map(
-                    (product: UserProductWithProduct) => {
-                      return (
-                        <div key={product.id}>
-                          <div>
-                            {product.quantity}
-                            {product.product.name}
-                          </div>
-                        </div>
-                      );
-                    },
-                  )}
-                </div>
-                {/* <div>{order.}</div> */}
-              </div>
-            );
+            return <OrderItem order={order} key={order.id} />;
           })}
         </div>
       </div>
@@ -80,4 +59,4 @@ const UserRequestsPage = () => {
   }
 };
 
-export default UserRequestsPage;
+export default UserOrdersPage;
