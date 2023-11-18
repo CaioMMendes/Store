@@ -148,7 +148,7 @@ const OrderItem = ({ order }: { order: UserOrderWithUserProductProps }) => {
               <div className="flex w-full  items-center justify-between gap-1 ">
                 <p className="font-semi">Total</p>
                 <p className="font-semibold">
-                  R$ {Number(order?.userProducts[0]?.totalPaid).toFixed(2)}
+                  R$ {Number(totalPaid).toFixed(2)}
                 </p>
               </div>
               <Separator />
