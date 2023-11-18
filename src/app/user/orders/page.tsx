@@ -8,6 +8,10 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "react-query";
 import LoginUserRequests from "./components/login";
 import OrderItem from "./components/order-item";
+import { useState } from "react";
+import orderProvider from "@/providers/order-provider";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export interface UserOrderWithUserProductProps extends UserOrder {
   userProducts: UserProductWithProduct[];
@@ -20,14 +24,19 @@ export interface UserProductWithProduct extends UserProduct {
 const UserOrdersPage = () => {
   const { data, status } = useSession();
   const dataUser = data as DataProps;
-  const router = useRouter();
-
+  const setOrders = orderProvider((state) => state.setOrder);
+  const orders = orderProvider((state) => state.orders);
   const {
     data: userOrdersData,
     isError: userOrdersIsError,
     isLoading: userOrdersIsLoading,
   } = useQuery({
     queryKey: [`userOrders`, dataUser?.user.id /* productsZustand */],
+    onSuccess: (data) => {
+      if (data && data.length > 0) {
+        setOrders(data);
+      }
+    },
     cacheTime: 0,
     queryFn: async () => await getAllUserOrders(dataUser?.user.id),
   });
@@ -44,16 +53,25 @@ const UserOrdersPage = () => {
   } else if (status === "unauthenticated") {
     return <LoginUserRequests />;
   } else if (status === "authenticated") {
-    console.log(userOrdersData);
     return (
-      <div className="p-5">
-        Meus pedidos
-        <div className="flex flex-col gap-5">
-          {userOrdersData?.map((order: UserOrderWithUserProductProps) => {
-            console.log(order.userProducts);
-            return <OrderItem order={order} key={order.id} />;
-          })}
-        </div>
+      <div>
+        {orders.length > 0 ? (
+          <div className="flex flex-col gap-5 p-5">
+            <p className="text-lg font-semibold">Meus pedidos</p>
+            <div className="flex flex-col gap-5">
+              {orders.map((order: UserOrderWithUserProductProps) => {
+                return <OrderItem order={order} key={order.id} />;
+              })}
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-5 p-5">
+            <p>Você ainda não possui nenhum pedido.</p>
+            <Link href={"/category/deals/"}>
+              <Button className="w-full">Ver Ofertas</Button>
+            </Link>
+          </div>
+        )}
       </div>
     );
   }

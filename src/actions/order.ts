@@ -1,10 +1,7 @@
 "use server";
 
-import { computeProductTotalPrice } from "@/helpers/productPrice";
 import { prismaClient } from "@/lib/prisma";
 import { OptionalIdUserCart } from "@/providers/cart-provider";
-import { User, UserProduct } from "@prisma/client";
-import Stripe from "stripe";
 
 export const createOrder = async (
   cartProducts: OptionalIdUserCart[],

@@ -2,19 +2,25 @@ import { prismaClient } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function DELETE(request: Request) {
-  const { cartProductId } = await request.json();
-  if (!cartProductId) {
+  console.log("first");
+  const { orderId } = await request.json();
+  if (!orderId) {
     return new NextResponse(JSON.stringify({ message: "Ocorreu um erro" }), {
       status: 403,
     });
   }
-  const product = await prismaClient.userCart.delete({
+  await prismaClient.userProduct.deleteMany({
     where: {
-      id: cartProductId,
+      orderId: orderId,
+    },
+  });
+  await prismaClient.userOrder.delete({
+    where: {
+      id: orderId,
     },
   });
   return new NextResponse(
-    JSON.stringify({ message: "Produto deletado com sucesso!" }),
+    JSON.stringify({ message: "Pedido cancelado com sucesso!" }),
     { status: 200 },
   );
 }

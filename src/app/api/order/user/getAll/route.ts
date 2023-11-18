@@ -12,6 +12,10 @@ export async function POST(request: Request) {
     where: {
       userId: userId,
     },
+    orderBy: {
+      updatedAt: "desc",
+    },
+
     include: {
       userProducts: {
         include: {

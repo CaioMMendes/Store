@@ -34,7 +34,7 @@ function Header() {
           </Link>
         </div>
         <div className="z-[61] flex gap-1">
-          <HandleTheme />
+          {/* <HandleTheme /> */}
           <CartSheet />
         </div>
       </Card>

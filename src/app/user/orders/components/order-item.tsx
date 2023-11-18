@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { loadStripe } from "@stripe/stripe-js";
 import { createCheckout } from "@/actions/checkout";
 import { computeProductTotalPrice } from "@/helpers/productPrice";
+import AlertDialogCancelOrder from "./alert-dialog-cancel-order";
 
 interface OrderProductProps {
   product: {
@@ -32,7 +33,15 @@ interface OrderProductProps {
 }
 
 const OrderItem = ({ order }: { order: UserOrderWithUserProductProps }) => {
-  const updatedAtDate = new Date(order.updatedAt).toLocaleString();
+  const updatedAtDate = new Date(order.updatedAt).toLocaleString(undefined, {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+  const updatedAtHour = new Date(order.updatedAt).toLocaleString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
   const totalProductsOrder = TotalProductsOrderCalc(order.userProducts);
   const handlePurchase = async () => {
     const products: OrderProductProps[] = order.userProducts.map((product) => {
@@ -63,8 +72,8 @@ const OrderItem = ({ order }: { order: UserOrderWithUserProductProps }) => {
       <Accordion type="single" collapsible>
         <AccordionItem value={order.id} className="px-4">
           <AccordionTrigger /* className="hover:underline" */>
-            <div className="flex justify-between gap-2">
-              <div className="relative flex h-24 w-[45%] flex-col items-center justify-center rounded-lg bg-accent ">
+            <div className="flex w-full justify-between gap-2">
+              <div className="relative flex h-24 w-[25%] flex-col items-center justify-center rounded-lg bg-accent ">
                 <Image
                   src={order?.userProducts[0]?.product?.imageURLs[0]}
                   alt={order?.userProducts[0]?.product?.name}
@@ -77,24 +86,28 @@ const OrderItem = ({ order }: { order: UserOrderWithUserProductProps }) => {
                   }}
                 />
               </div>
-              <div className="flex w-full flex-col items-start justify-center gap-1 ">
+              <div className="flex w-[75%] flex-col items-start justify-center gap-1 ">
                 <p>Pedido com {totalProductsOrder} produto(s)</p>
-                <p>Efetuado em {updatedAtDate}</p>
+                <div className="flex w-full flex-wrap gap-1 ">
+                  <p>Efetuado em {updatedAtDate}</p>
+                  <p>as {updatedAtHour}</p>
+                </div>
                 <p>Total: R$ {totalPaid.toFixed(2)}</p>
               </div>
             </div>
           </AccordionTrigger>
           <AccordionContent>
             <div className="flex flex-col gap-3">
-              <div className="flex justify-between ">
-                <div className="flex flex-col gap-1">
+              <div className="flex h-full justify-between ">
+                <div className="flex  flex-col gap-1">
                   <p className="text-lg font-semibold">Status</p>
                   <p
-                    className={`${
-                      order.status === "PAYMENT_CONFIRMED"
-                        ? "text-primary"
-                        : "text-orange-600"
-                    }`}
+                    className={`
+                     ${
+                       order.status === "PAYMENT_CONFIRMED"
+                         ? "text-primary"
+                         : "text-orange-600"
+                     }`}
                   >
                     {order.status === "PAYMENT_CONFIRMED"
                       ? "Pago"
@@ -112,7 +125,15 @@ const OrderItem = ({ order }: { order: UserOrderWithUserProductProps }) => {
                   </div>
                 )}
                 {order.status === "WAITING_FOR_PAYMENT" && (
-                  <Button onClick={handlePurchase}>Pagar</Button>
+                  <div className="flex h-full">
+                    <Button
+                      // variant={"outline"}
+                      className="flex h-full w-32 flex-wrap "
+                      onClick={handlePurchase}
+                    >
+                      Realizar Pagamento
+                    </Button>
+                  </div>
                 )}
               </div>
               <Separator />
@@ -130,6 +151,8 @@ const OrderItem = ({ order }: { order: UserOrderWithUserProductProps }) => {
                   R$ {Number(order?.userProducts[0]?.totalPaid).toFixed(2)}
                 </p>
               </div>
+              <Separator />
+              <AlertDialogCancelOrder orderId={order.id} />
             </div>
           </AccordionContent>
         </AccordionItem>
