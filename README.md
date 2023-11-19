@@ -49,4 +49,4 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 ## 📦  Exemplo
 
-<img  title="Gif projeto mobile" src="https://cdn.discordapp.com/attachments/1034255834835845150/1175844506646622298/Design_sem_nome_5.gif?ex=656cb588&is=655a4088&hm=26e58f4d66e5fff8b3758b92a02fcf52eb8623137e3e2f87983c456cb45e6b3d&" height="375" width="375"  />
+<img  title="Gif projeto mobile" src="https://cdn.discordapp.com/attachments/1034255834835845150/1175891517286658099/Design_sem_nome_8.gif?ex=656ce150&is=655a6c50&hm=9a7fa0265bfaa382385785d84159d8e5ca15d65e3c26382b214edcba52b1234f&" height="375" width="375"  />
