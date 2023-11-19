@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 🖥 Desktop
 
-## Getting Started
+<div align="center" style="justify-content:center; display:flex; flex-direction:column; gap:20px">
+<img  title="Imagem do projeto desktop" src="https://cdn.discordapp.com/attachments/1034255834835845150/1175834841787400312/image.png?ex=656cac88&is=655a3788&hm=5c867ded14b1a547dd0d65d528df9a9a8bdc3ba5ca56e54276fa806ad874dae0&" alt="Imagem do projeto desktop"  />
+<img  title="Imagem do projeto desktop" src="https://cdn.discordapp.com/attachments/1034255834835845150/1175834966551187586/image.png?ex=656caca5&is=655a37a5&hm=2303ac035e42d5365edd9a8fa137441e7d13fc96d37b68492739c36de9c1292e&" alt="Imagem do projeto desktop"  />
+</div>
 
-First, run the development server:
+## 📱 Mobile
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<div align="center" style="justify-content:center; display:flex; flex-direction:column; gap:20px">
+<img  title="Imagem do projeto mobile" src="https://cdn.discordapp.com/attachments/1034255834835845150/1175835315412402207/image.png?ex=656cacf9&is=655a37f9&hm=d498236324f3d3f8fc58331ff68e97a2cc84ca3d000a45f96d71f94e567e92d3&" alt="Imagem do projeto mobile"  />
+<img  title="Imagem do projeto mobile" src="https://cdn.discordapp.com/attachments/1034255834835845150/1175835212308033587/image.png?ex=656cace0&is=655a37e0&hm=d05e31420141ca0bf58c81fd1172afe0ba1f451cff753018c58f9ee9dfe5c4f6&" alt="Imagem do projeto mobile"  />
+<img  title="Imagem do projeto mobile" src="https://cdn.discordapp.com/attachments/1034255834835845150/1175835518488039534/image.png?ex=656cad29&is=655a3829&hm=148420562cf488d041817dfb4ad3e16f281e0e9499e565de1566d794768a0b02&" alt="Imagem do projeto mobile"  />
+<img  title="Imagem do projeto mobile" src="https://cdn.discordapp.com/attachments/1034255834835845150/1175835415593365514/image.png?ex=656cad11&is=655a3811&hm=d5bf6e8e5f4518a159c8aa0ffebdee7a9635c9943e0755fa3f9176ade76ec420&" alt="Imagem do projeto mobile"  />
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📌 Sobre
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Store** é um projeto de e-commerce.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 🚀 Tecnologias utilizadas
 
-## Learn More
+O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
-To learn more about Next.js, take a look at the following resources:
+- [Next](https://nextjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [NextAuth](https://next-auth.js.org/)
+- [Stripe](https://stripe.com/br?utm_campaign=BR_en_Search_Brand_Brand_EXA-15088005049&utm_medium=cpc&utm_source=google&ad_content=603963803239&utm_term=stripe&utm_matchtype=e&utm_adposition=&utm_device=c&gclid=CjwKCAiAgeeqBhBAEiwAoDDhn-uFC7kxKBhv1mdhEDV3YF4t4_p4CPb-thEMXqIVVWYa3wJBK0KwchoCu-cQAvD_BwE)
+  
+- [Tailwindcss](https://tailwindcss.com/)
+- [Shadcn](https://ui.shadcn.com/)
+- [React Hook Form](https://www.react-hook-form.com/)
+- [React Query](https://tanstack.com/query/v3/)
+- [Zod](https://zod.dev/)
+- [Zustand](https://zustand-demo.pmnd.rs/)
+- [Keen-Slider](https://keen-slider.io/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Colors
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+| Color             | Hex                                                                |
+| ----------------- | ------------------------------------------------------------------ |
+| Primary Color | ![#4f32c3](https://via.placeholder.com/10/4f32c3?text=+) #4f32c3 |
+| Accent Color | ![#171717](https://via.placeholder.com/10/171717?text=+) #171717 |
+| Background Color | ![#0a0a0a](https://via.placeholder.com/10/0a0a0a?text=+) #0a0a0a |
 
-## Deploy on Vercel
+## 💻 O projeto pode ser vizualizado acessando o seguinte link
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<https://store-caio.vercel.app/>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 📦  Exemplo
+
+<img  title="Gif projeto mobile" src="https://cdn.discordapp.com/attachments/1034255834835845150/1175844506646622298/Design_sem_nome_5.gif?ex=656cb588&is=655a4088&hm=26e58f4d66e5fff8b3758b92a02fcf52eb8623137e3e2f87983c456cb45e6b3d&" height="375" width="375"  />
