@@ -7,7 +7,7 @@ import SearchHeader from "./search-header";
 
 function Header() {
   return (
-    <Card className="sticky top-0 z-[60] flex-col bg-background">
+    <Card className="sticky top-0 z-[60] w-full flex-col rounded-none bg-background ">
       <div className="relative z-[60] flex w-full items-center justify-between rounded-none border-x-0 border-b-[1.5px] border-t-0 bg-background  px-4 pb-1 pt-3 md:border-none">
         <div className="z-[61]">
           <HeaderMenu />
