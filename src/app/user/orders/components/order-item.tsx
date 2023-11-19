@@ -63,7 +63,7 @@ const OrderItem = ({ order }: { order: UserOrderWithUserProductProps }) => {
   };
 
   const totalPaid = order.userProducts.reduce((total, current) => {
-    return total + Number(current.totalPaid);
+    return total + Number(current.totalPaid) * current.quantity;
   }, 0);
 
   return (
