@@ -9,7 +9,7 @@ const SearchHeader = () => {
       <Link href={"/catalog/"}>
         <Button variant={"outline"}>Catálogo</Button>
       </Link>
-      <Link href={"/categories/deals/"}>
+      <Link href={"/category/deals/"}>
         <Button variant={"outline"}>Ofertas</Button>
       </Link>
       <div className="flex flex-1 ">
