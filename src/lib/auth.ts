@@ -15,7 +15,7 @@ export const authOptions: AuthOptions = {
   // debug: true,
   //serve pra retornar o user na response
   callbacks: {
-    async session({ session, token, user }) {
+    async session({ session, user }) {
       session.user = { ...session.user, id: user.id } as {
         id: string;
         name: string;
