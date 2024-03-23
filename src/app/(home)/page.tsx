@@ -5,6 +5,7 @@ import Categories from "./components/categories";
 import PhotoshopBanner from "./components/photoshop-banners";
 import PromoBanner from "./components/promo-banner";
 import DealsBannerLarge from "./components/deals-banner-large";
+import Image from "next/image";
 
 export default function Home() {
   return (

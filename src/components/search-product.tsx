@@ -13,7 +13,7 @@ const SearchProduct = () => {
   const searchProductFormSchema = z.object({
     product: z
       .string({ invalid_type_error: "O valor precisa ser uma string" })
-      //   .maxLength(2)
+        // .maxLength(2)
       .optional(),
   });
   const {
