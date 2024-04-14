@@ -22,9 +22,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-br" className="h-fit !min-h-screen max-w-screen-2xl">
+    <html
+      lang="pt-br"
+      className="m-auto flex h-fit !min-h-screen w-full justify-center lg:min-w-[1024px] xl:min-w-[1280px] 2xl:min-w-[1536px] "
+    >
       <body
-        className={`${inter.className} flex h-full !min-h-screen  flex-col`}
+        className={`${inter.className} flex h-full !min-h-screen max-w-screen-2xl flex-col lg:min-w-[1024px] xl:min-w-[1280px] 2xl:min-w-[1536px]`}
       >
         <AuthProvider>
           <ReactQueryProvider>
