@@ -65,6 +65,9 @@
 
     --radius: 0.5rem;
   }
+  body {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 @layer base {
