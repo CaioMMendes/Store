@@ -39,9 +39,9 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 | Color             | Hex                                                                |
 | ----------------- | ------------------------------------------------------------------ |
-| Primary Color | ![#4f32c3](https://via.placeholder.com/10/4f32c3?text=+) #4f32c3 |
-| Accent Color | ![#171717](https://via.placeholder.com/10/171717?text=+) #171717 |
-| Background Color | ![#0a0a0a](https://via.placeholder.com/10/0a0a0a?text=+) #0a0a0a |
+| Primary Color | ![#4f32c3](https://readme-swatches.vercel.app/4f32c3?size=10) #4f32c3 |
+| Accent Color | ![#171717](https://readme-swatches.vercel.app/171717?size=10) #171717 |
+| Background Color | ![#0a0a0a](https://readme-swatches.vercel.app/0a0a0a?size=10) #0a0a0a |
 
 ## 💻 O projeto pode ser vizualizado acessando o seguinte link
 
