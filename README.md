@@ -45,7 +45,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 ## 💻 O projeto pode ser vizualizado acessando o seguinte link
 
-<https://store-caio.vercel.app/>
+<https://store-caio.cmmrcode.com.br>
 
 ## 📦  Exemplo
 
